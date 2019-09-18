@@ -6,7 +6,7 @@
 
 ![image](https://github.com/hepyu/k8s-app-config/blob/master/images/K8S.png)
 
-# 姐妹项目
+# 姊妹项目
 
 提供可以供实验的k8s配置：
 
@@ -73,9 +73,9 @@ elasticsearch这类例外，因为es的不同版本的api差异极大，生产�
 
 ## 3.1. saf提供了allinonedemo，rpc与web的各自demo
 
-rpc-allinone-demo:https://github.com/hepyu/saf-private/tree/master/saf-samples/saf-sample-allinone/saf-sample-allinone-service
+rpc-allinone-demo:https://github.com/hepyu/saf/tree/master/saf-samples/saf-sample-allinone/saf-sample-allinone-service
 
-web-allinone-demo:https://github.com/hepyu/saf-private/tree/master/saf-samples/saf-sample-allinone/saf-sample-allinone-web
+web-allinone-demo:https://github.com/hepyu/saf/tree/master/saf-samples/saf-sample-allinone/saf-sample-allinone-web
 
 ## 3.2.demo运行前提
 

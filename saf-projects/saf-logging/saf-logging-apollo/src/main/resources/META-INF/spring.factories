@@ -1,0 +1,6 @@
+# Initializers
+org.springframework.context.ApplicationContextInitializer=\
+com.future.saf.logging.apollo.Log4j2ContextInitializer
+
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.future.saf.logging.apollo.LoggerLevelRefresherAutoConfiguration

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<appenders>
+    <Console name="STDOUT" target="SYSTEM_OUT">
+        <PatternLayout pattern="${PATTERN}"/>
+    </Console>
+    <Console name="STDERR" target="SYSTEM_ERR">
+        <Filters>
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+        </Filters>
+        <PatternLayout pattern="${PATTERN}"/>
+    </Console>
+    <RollingRandomAccessFile name="traceFile"
+                             fileName="${LOG_HOME}/trace.log"
+                             filePattern="${LOG_HOME}/trace/trace.log.%d{yyyyMMdd}.%i"
+                             immediateFlush="false"
+                             ignoreExceptions="true">
+        <PatternLayout pattern="${PATTERN}"/>
+        <Policies>
+            <SizeBasedTriggeringPolicy size="${EVERY_FILE_SIZE}"/>
+            <TimeBasedTriggeringPolicy />
+        </Policies>
+        <Filters>
+            <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+        </Filters>
+        <DefaultRolloverStrategy max="10" >
+            <Delete basePath="${LOG_HOME}/trace" maxDepth="1">
+                <IfLastModified age="15d" />
+                <!--<IfLastModified age="15M" />-->
+            </Delete>
+        </DefaultRolloverStrategy>
+    </RollingRandomAccessFile>
+    <Async name="traceAppender">
+        <AppenderRef ref="traceFile"/>
+        <!--<DisruptorBlockingQueue />-->
+    </Async>
+
+    <RollingRandomAccessFile name="appFile"
+                             fileName="${LOG_HOME}/app.log"
+                             filePattern="${LOG_HOME}/app/app.log.%d{yyyyMMdd}.%i"
+                             immediateFlush="false"
+                             ignoreExceptions="true">
+        <PatternLayout pattern="${PATTERN}"/>
+        <Policies>
+            <SizeBasedTriggeringPolicy size="${EVERY_FILE_SIZE}"/>
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+        </Policies>
+        <Filters>
+            <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+        </Filters>
+        <DefaultRolloverStrategy max="30" >
+            <Delete basePath="${LOG_HOME}/app" maxDepth="1">
+                <IfLastModified age="15d" />
+                <!--<IfLastModified age="15M" />-->
+            </Delete>
+        </DefaultRolloverStrategy>
+    </RollingRandomAccessFile>
+    <Async name="appAppender">
+        <AppenderRef ref="appFile"/>
+        <!--<DisruptorBlockingQueue />-->
+    </Async>
+
+    <RollingRandomAccessFile name="frameworkFile"
+                             fileName="${LOG_HOME}/framework.log"
+                             filePattern="${LOG_HOME}/framework/framework.log.%d{yyyyMMdd}.%i"
+                             immediateFlush="false"
+                             ignoreExceptions="true">
+        <PatternLayout pattern="${PATTERN}"/>
+        <Policies>
+            <SizeBasedTriggeringPolicy size="${EVERY_FILE_SIZE}"/>
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+        </Policies>
+        <Filters>
+            <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+        </Filters>
+        <DefaultRolloverStrategy max="3" >
+            <Delete basePath="${LOG_HOME}/framework" maxDepth="1">
+                <IfLastModified age="15d" />
+                <!--<IfLastModified age="15M" />-->
+            </Delete>
+        </DefaultRolloverStrategy>
+    </RollingRandomAccessFile>
+    <Async name="frameworkAppender">
+        <AppenderRef ref="frameworkFile"/>
+        <!--<DisruptorBlockingQueue />-->
+    </Async>
+
+    <RollingRandomAccessFile name="errorFile"
+                             fileName="${LOG_HOME}/error.log"
+                             filePattern="${LOG_HOME}/error/error.log.%d{yyyyMMdd}.%i"
+                             immediateFlush="false"
+                             ignoreExceptions="false">
+        <PatternLayout pattern="${PATTERN}"/>
+        <Policies>
+            <SizeBasedTriggeringPolicy size="${EVERY_FILE_SIZE}"/>
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+        </Policies>
+        <Filters>
+            <!-- 只记录error级别的信息 -->
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+        </Filters>
+        <DefaultRolloverStrategy max="30" >
+            <Delete basePath="${LOG_HOME}/error" maxDepth="1">
+                <IfLastModified age="15d" />
+                <!--<IfLastModified age="15M" />-->
+            </Delete>
+        </DefaultRolloverStrategy>
+    </RollingRandomAccessFile>
+    <Async name="errorAppender">
+        <AppenderRef ref="errorFile"/>
+        <!--<DisruptorBlockingQueue />-->
+    </Async>
+
+    <RollingRandomAccessFile name="performanceFile"
+                             fileName="${LOG_HOME}/performance.log"
+                             filePattern="${LOG_HOME}/performance/performance.log.%d{yyyyMMdd}.%i"
+                             immediateFlush="false"
+                             ignoreExceptions="false">
+        <PatternLayout pattern="${PERF_PATTERN}"/>
+        <Policies>
+            <SizeBasedTriggeringPolicy size="${EVERY_FILE_SIZE}"/>
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+        </Policies>
+        <DefaultRolloverStrategy max="3" >
+            <Delete basePath="${LOG_HOME}/performance" maxDepth="1">
+                <IfLastModified age="15d" />
+                <!--<IfLastModified age="15M" />-->
+            </Delete>
+        </DefaultRolloverStrategy>
+    </RollingRandomAccessFile>
+    <Async name="performanceAppender">
+        <AppenderRef ref="performanceFile"/>
+        <!--<DisruptorBlockingQueue />-->
+    </Async>
+
+    <!-- 访问日志 -->
+    <RollingRandomAccessFile
+            name="accessFile"
+            fileName="${LOG_HOME}/access.log"
+            filePattern="${LOG_HOME}/access/access.log.%d{yyyyMMdd}.%i"
+            immediateFlush="false"
+            ignoreExceptions="true">
+        <PatternLayout pattern="${PATTERN}"/>
+        <Policies>
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            <SizeBasedTriggeringPolicy size="${EVERY_FILE_SIZE}" />
+        </Policies>
+        <DefaultRolloverStrategy max="30" >
+            <Delete basePath="${LOG_HOME}/access" maxDepth="1">
+                <IfLastModified age="15d" />
+                <!--<IfLastModified age="15M" />-->
+            </Delete>
+        </DefaultRolloverStrategy>
+    </RollingRandomAccessFile>
+    <Async name="accessAppender">
+        <AppenderRef ref="accessFile" />
+        <!--<DisruptorBlockingQueue />-->
+    </Async>
+</appenders>

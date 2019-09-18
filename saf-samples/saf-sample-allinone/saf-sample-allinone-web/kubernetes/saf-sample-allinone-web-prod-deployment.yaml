@@ -1,0 +1,78 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: saf-sample-allinone-web-prod
+    inc-app: saf-sample-allinone-web-prod
+  name: saf-sample-allinone-web-prod
+  namespace: inc
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: saf-sample-allinone-web-prod
+  strategy:
+    rollingUpdate:
+      maxSurge: 20%
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: saf-sample-allinone-web-prod
+        inc-app: saf-sample-allinone-web-prod
+        ns: inc
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: saf-sample-allinone-web-prod
+        image: saf-sample-allinone-web:1.0.0-SNAPSHOT
+        imagePullPolicy: IfNotPresent
+        name: saf-sample-allinone-web-prod
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 9145
+          name: exporter
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 10
+          httpGet:
+            path: /actuator/health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1.5Gi
+          requests:
+            cpu: 500m
+            memory: 1.5Gi
+        securityContext:
+          privileged: false
+          procMount: Default
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data
+          name: tomcat-data
+      dnsPolicy: ClusterFirst
+      #如果使用阿里云的镜像仓库，需要自己创建secret。
+      #imagePullSecrets:
+      #- name: inc
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: tomcat-data
+        persistentVolumeClaim:
+          claimName: saf-sample-allinone-web-prod

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="off" monitorInterval="1800" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <properties>
+        <property name="LOG_HOME">${sys:app.logging.path}</property>
+        <property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] [%level] [%X{column1}-%X{column2}] [%c{1.}] - %msg%xEx%n</property>
+        <property name="PERF_PATTERN">%d{HH:mm:ss} [%X{column1}-%X{column2}] - %msg%xEx%n</property>
+        <property name="OUTPUT_LOG_LEVEL">${sys:app.logging.level}</property>
+        <property name="EVERY_FILE_SIZE">1000 MB</property>
+        <!-- test -->
+        <!--<property name="EVERY_FILE_SIZE">100 KB</property>-->
+    </properties>
+
+    <xi:include href="log4j2-saf-appenders.xml" />
+
+    <loggers>
+        <Logger name="com.future" level="${OUTPUT_LOG_LEVEL}" additivity="false">
+            <AppenderRef ref="STDERR"/>
+            <AppenderRef ref="appAppender"/>
+            <AppenderRef ref="errorAppender" />
+        </Logger>
+        <Logger name="com.future.saf" level="${OUTPUT_LOG_LEVEL}" additivity="false">
+            <AppenderRef ref="STDERR"/>
+            <AppenderRef ref="frameworkAppender"/>
+            <AppenderRef ref="errorAppender" />
+        </Logger>
+        <Logger name="framework" level="${OUTPUT_LOG_LEVEL}" additivity="false">
+            <AppenderRef ref="STDERR"/>
+            <AppenderRef ref="frameworkAppender"/>
+            <AppenderRef ref="errorAppender" />
+        </Logger>
+        <Logger name="trace" level="${OUTPUT_LOG_LEVEL}" additivity="false">
+            <AppenderRef ref="STDERR"/>
+            <AppenderRef ref="traceAppender"/>
+            <AppenderRef ref="errorAppender" />
+        </Logger>
+        <Logger name="error" level="${OUTPUT_LOG_LEVEL}" additivity="false">
+            <AppenderRef ref="STDERR"/>
+            <AppenderRef ref="errorAppender" />
+        </Logger>
+        <Logger name="access" level="info" additivity="false">
+            <AppenderRef ref="STDERR"/>
+            <AppenderRef ref="accessAppender" />
+            <AppenderRef ref="errorAppender" />
+        </Logger>
+        <logger name="performance"  level="info" additivity="false">
+            <AppenderRef ref="STDERR"/>
+            <AppenderRef ref="performanceAppender" />
+            <AppenderRef ref="errorAppender" />
+        </logger>
+        <!--<logger name="serviceStatsLog"  level="info" additivity="false">-->
+            <!--<AppenderRef ref="STDOUT"/>-->
+            <!--<AppenderRef ref="performanceAppender" />-->
+            <!--<AppenderRef ref="errorAppender" />-->
+        <!--</logger>-->
+        <logger name="com.ctrip.framework.apollo"  level="info" additivity="false">
+            <AppenderRef ref="STDERR"/>
+            <AppenderRef ref="traceAppender"/>
+            <AppenderRef ref="errorAppender" />
+        </logger>
+        <logger name="com.alibaba.druid.filter.stat.StatFilter"  level="info" additivity="false">
+            <AppenderRef ref="STDERR"/>
+            <AppenderRef ref="performanceAppender" />
+            <AppenderRef ref="errorAppender" />
+        </logger>
+        <logger name="druid.sql.Connection"  level="info" additivity="false">
+            <AppenderRef ref="STDERR"/>
+            <AppenderRef ref="traceAppender"/>
+            <AppenderRef ref="errorAppender" />
+        </logger>
+        <logger name="druid.sql.DataSource"  level="info" additivity="false">
+            <AppenderRef ref="STDERR"/>
+            <AppenderRef ref="traceAppender"/>
+            <AppenderRef ref="errorAppender" />
+        </logger>
+        <logger name="com.ctrip.framework.apollo"  level="debug" additivity="false">
+            <AppenderRef ref="STDERR"/>
+            <AppenderRef ref="traceAppender"/>
+            <AppenderRef ref="errorAppender" />
+        </logger>
+        <ROOT level="${OUTPUT_LOG_LEVEL}" additivity="true">
+            <AppenderRef ref="STDERR"/>
+            <AppenderRef ref="traceAppender"/>
+            <AppenderRef ref="errorAppender"/>
+        </ROOT>
+    </loggers>
+</configuration>

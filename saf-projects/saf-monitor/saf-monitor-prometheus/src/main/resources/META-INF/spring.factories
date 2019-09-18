@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.future.saf.monitor.prometheus.listener.PrometheusMetricEventListener,\
+com.future.saf.monitor.prometheus.autoconfiguration.PrometheusAutoConfiguration

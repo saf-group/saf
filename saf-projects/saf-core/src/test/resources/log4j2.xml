@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="off" monitorInterval="1800">
+    <properties>
+        <property name="PATTERN">%d{HH:mm:ss.SSS} [%t] [%level] [%X{column1}-%X{column2}] [%c{1.}] - %msg%xEx%n</property>
+    </properties>
+    <appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="${PATTERN}"/>
+        </Console>
+    </appenders>
+    <loggers>
+        <Root level="INFO" additivity="true">
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+    </loggers>
+</configuration>

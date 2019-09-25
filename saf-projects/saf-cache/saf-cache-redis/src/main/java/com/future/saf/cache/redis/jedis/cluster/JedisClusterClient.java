@@ -1054,1121 +1054,949 @@ public class JedisClusterClient implements RedisClient, JedisCommands, MultiKeyJ
 
 	@Override
 	public void close() throws IOException {
-		// TODO Auto-generated method stub
-
+		jedisCluster.close();
 	}
 
 	@Override
 	public Object eval(byte[] script, byte[] keyCount, byte[]... params) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.eval(script, keyCount, params);
 	}
 
 	@Override
 	public Object eval(byte[] script, int keyCount, byte[]... params) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.eval(script, keyCount, params);
 	}
 
 	@Override
 	public Object eval(byte[] script, List<byte[]> keys, List<byte[]> args) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.eval(script, keys, args);
 	}
 
 	@Override
 	public Object eval(byte[] script, byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.eval(script, key);
 	}
 
 	@Override
 	public Object evalsha(byte[] script, byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.evalsha(script, key);
 	}
 
 	@Override
 	public Object evalsha(byte[] sha1, List<byte[]> keys, List<byte[]> args) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.evalsha(sha1, keys, args);
 	}
 
 	@Override
 	public Object evalsha(byte[] sha1, int keyCount, byte[]... params) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.evalsha(sha1, keyCount, params);
 	}
 
 	@Override
 	public List<Long> scriptExists(byte[] key, byte[][] sha1) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.scriptExists(key, sha1);
 	}
 
 	@Override
 	public byte[] scriptLoad(byte[] script, byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.scriptLoad(script, key);
 	}
 
 	@Override
 	public String scriptFlush(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.scriptFlush(key);
 	}
 
 	@Override
 	public String scriptKill(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.scriptKill(key);
 	}
 
 	@Override
 	public Long exists(byte[]... keys) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.exists(keys);
 	}
 
 	@Override
 	public Long del(byte[]... keys) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.del(keys);
 	}
 
 	@Override
 	public List<byte[]> blpop(int timeout, byte[]... keys) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.blpop(timeout, keys);
 	}
 
 	@Override
 	public List<byte[]> brpop(int timeout, byte[]... keys) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.brpop(timeout, keys);
 	}
 
 	@Override
 	public List<byte[]> mget(byte[]... keys) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.mget(keys);
 	}
 
 	@Override
 	public String mset(byte[]... keysvalues) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.mset(keysvalues);
 	}
 
 	@Override
 	public Long msetnx(byte[]... keysvalues) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.msetnx(keysvalues);
 	}
 
 	@Override
 	public String rename(byte[] oldkey, byte[] newkey) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.rename(oldkey, newkey);
 	}
 
 	@Override
 	public Long renamenx(byte[] oldkey, byte[] newkey) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.renamenx(oldkey, newkey);
 	}
 
 	@Override
 	public byte[] rpoplpush(byte[] srckey, byte[] dstkey) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.rpoplpush(srckey, dstkey);
 	}
 
 	@Override
 	public Set<byte[]> sdiff(byte[]... keys) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.sdiff(keys);
 	}
 
 	@Override
 	public Long sdiffstore(byte[] dstkey, byte[]... keys) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.sdiffstore(dstkey, keys);
 	}
 
 	@Override
 	public Set<byte[]> sinter(byte[]... keys) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.sinter(keys);
 	}
 
 	@Override
 	public Long sinterstore(byte[] dstkey, byte[]... keys) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.sinterstore(dstkey, keys);
 	}
 
 	@Override
 	public Long smove(byte[] srckey, byte[] dstkey, byte[] member) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.smove(srckey, dstkey, member);
 	}
 
 	@Override
 	public Long sort(byte[] key, SortingParams sortingParameters, byte[] dstkey) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.sort(key, sortingParameters, dstkey);
 	}
 
 	@Override
 	public Long sort(byte[] key, byte[] dstkey) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.sort(key, dstkey);
 	}
 
 	@Override
 	public Set<byte[]> sunion(byte[]... keys) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.sunion(keys);
 	}
 
 	@Override
 	public Long sunionstore(byte[] dstkey, byte[]... keys) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.sunionstore(dstkey, keys);
 	}
 
 	@Override
 	public Long zinterstore(byte[] dstkey, byte[]... sets) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zinterstore(dstkey, sets);
 	}
 
 	@Override
 	public Long zinterstore(byte[] dstkey, ZParams params, byte[]... sets) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zinterstore(dstkey, params, sets);
 	}
 
 	@Override
 	public Long zunionstore(byte[] dstkey, byte[]... sets) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zunionstore(dstkey, sets);
 	}
 
 	@Override
 	public Long zunionstore(byte[] dstkey, ZParams params, byte[]... sets) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zunionstore(dstkey, params, sets);
 	}
 
 	@Override
 	public byte[] brpoplpush(byte[] source, byte[] destination, int timeout) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.brpoplpush(source, destination, timeout);
 	}
 
 	@Override
 	public Long publish(byte[] channel, byte[] message) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.publish(channel, message);
 	}
 
 	@Override
 	public void subscribe(BinaryJedisPubSub jedisPubSub, byte[]... channels) {
-		// TODO Auto-generated method stub
-
+		jedisCluster.subscribe(jedisPubSub, channels);
 	}
 
 	@Override
 	public void psubscribe(BinaryJedisPubSub jedisPubSub, byte[]... patterns) {
-		// TODO Auto-generated method stub
-
+		jedisCluster.psubscribe(jedisPubSub, patterns);
 	}
 
 	@Override
 	public Long bitop(BitOP op, byte[] destKey, byte[]... srcKeys) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.bitop(op, destKey, srcKeys);
 	}
 
 	@Override
 	public String pfmerge(byte[] destkey, byte[]... sourcekeys) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.pfmerge(destkey, sourcekeys);
 	}
 
 	@Override
 	public Long pfcount(byte[]... keys) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.pfcount(keys);
 	}
 
 	@Override
 	public String set(byte[] key, byte[] value) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.set(key, value);
 	}
 
 	@Override
 	public String set(byte[] key, byte[] value, byte[] nxxx, byte[] expx, long time) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.set(key, value, nxxx, expx, time);
 	}
 
 	@Override
 	public byte[] get(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.get(key);
 	}
 
 	@Override
 	public Boolean exists(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.exists(key);
 	}
 
 	@Override
 	public Long persist(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.persist(key);
 	}
 
 	@Override
 	public String type(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.type(key);
 	}
 
 	@Override
 	public Long expire(byte[] key, int seconds) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.expire(key, seconds);
 	}
 
 	@Override
 	public Long pexpire(byte[] key, long milliseconds) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.pexpire(key, milliseconds);
 	}
 
 	@Override
 	public Long expireAt(byte[] key, long unixTime) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.expireAt(key, unixTime);
 	}
 
 	@Override
 	public Long pexpireAt(byte[] key, long millisecondsTimestamp) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.pexpireAt(key, millisecondsTimestamp);
 	}
 
 	@Override
 	public Long ttl(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.ttl(key);
 	}
 
 	@Override
 	public Boolean setbit(byte[] key, long offset, boolean value) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.setbit(key, offset, value);
 	}
 
 	@Override
 	public Boolean setbit(byte[] key, long offset, byte[] value) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.setbit(key, offset, value);
 	}
 
 	@Override
 	public Boolean getbit(byte[] key, long offset) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.getbit(key, offset);
 	}
 
 	@Override
 	public Long setrange(byte[] key, long offset, byte[] value) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.setrange(key, offset, value);
 	}
 
 	@Override
 	public byte[] getrange(byte[] key, long startOffset, long endOffset) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.getrange(key, startOffset, endOffset);
 	}
 
 	@Override
 	public byte[] getSet(byte[] key, byte[] value) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.getSet(key, value);
 	}
 
 	@Override
 	public Long setnx(byte[] key, byte[] value) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.setnx(key, value);
 	}
 
 	@Override
 	public String setex(byte[] key, int seconds, byte[] value) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.setex(key, seconds, value);
 	}
 
 	@Override
 	public Long decrBy(byte[] key, long integer) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.decrBy(key, integer);
 	}
 
 	@Override
 	public Long decr(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.decr(key);
 	}
 
 	@Override
 	public Long incrBy(byte[] key, long integer) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.incrBy(key, integer);
 	}
 
 	@Override
 	public Double incrByFloat(byte[] key, double value) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.incrByFloat(key, value);
 	}
 
 	@Override
 	public Long incr(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.incr(key);
 	}
 
 	@Override
 	public Long append(byte[] key, byte[] value) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.append(key, value);
 	}
 
 	@Override
 	public byte[] substr(byte[] key, int start, int end) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.substr(key, start, end);
 	}
 
 	@Override
 	public Long hset(byte[] key, byte[] field, byte[] value) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.hset(key, field, value);
 	}
 
 	@Override
 	public byte[] hget(byte[] key, byte[] field) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.hget(key, field);
 	}
 
 	@Override
 	public Long hsetnx(byte[] key, byte[] field, byte[] value) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.hsetnx(key, field, value);
 	}
 
 	@Override
 	public String hmset(byte[] key, Map<byte[], byte[]> hash) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.hmset(key, hash);
 	}
 
 	@Override
 	public List<byte[]> hmget(byte[] key, byte[]... fields) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.hmget(key, fields);
 	}
 
 	@Override
 	public Long hincrBy(byte[] key, byte[] field, long value) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.hincrBy(key, field, value);
 	}
 
 	@Override
 	public Double hincrByFloat(byte[] key, byte[] field, double value) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.hincrByFloat(key, field, value);
 	}
 
 	@Override
 	public Boolean hexists(byte[] key, byte[] field) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.hexists(key, field);
 	}
 
 	@Override
 	public Long hdel(byte[] key, byte[]... field) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.hdel(key, field);
 	}
 
 	@Override
 	public Long hlen(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.hlen(key);
 	}
 
 	@Override
 	public Set<byte[]> hkeys(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.hkeys(key);
 	}
 
 	@Override
 	public Collection<byte[]> hvals(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.hvals(key);
 	}
 
 	@Override
 	public Map<byte[], byte[]> hgetAll(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.hgetAll(key);
 	}
 
 	@Override
 	public Long rpush(byte[] key, byte[]... args) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.rpush(key, args);
 	}
 
 	@Override
 	public Long lpush(byte[] key, byte[]... args) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.lpush(key, args);
 	}
 
 	@Override
 	public Long llen(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.llen(key);
 	}
 
 	@Override
 	public List<byte[]> lrange(byte[] key, long start, long end) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.lrange(key, start, end);
 	}
 
 	@Override
 	public String ltrim(byte[] key, long start, long end) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.ltrim(key, start, end);
 	}
 
 	@Override
 	public byte[] lindex(byte[] key, long index) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.lindex(key, index);
 	}
 
 	@Override
 	public String lset(byte[] key, long index, byte[] value) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.lset(key, index, value);
 	}
 
 	@Override
 	public Long lrem(byte[] key, long count, byte[] value) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.lrem(key, count, value);
 	}
 
 	@Override
 	public byte[] lpop(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.lpop(key);
 	}
 
 	@Override
 	public byte[] rpop(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.rpop(key);
 	}
 
 	@Override
 	public Long sadd(byte[] key, byte[]... member) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.sadd(key, member);
 	}
 
 	@Override
 	public Set<byte[]> smembers(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.smembers(key);
 	}
 
 	@Override
 	public Long srem(byte[] key, byte[]... member) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.srem(key, member);
 	}
 
 	@Override
 	public byte[] spop(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.spop(key);
 	}
 
 	@Override
 	public Set<byte[]> spop(byte[] key, long count) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.spop(key, count);
 	}
 
 	@Override
 	public Long scard(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.scard(key);
 	}
 
 	@Override
 	public Boolean sismember(byte[] key, byte[] member) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.sismember(key, member);
 	}
 
 	@Override
 	public byte[] srandmember(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.srandmember(key);
 	}
 
 	@Override
 	public List<byte[]> srandmember(byte[] key, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.srandmember(key, count);
 	}
 
 	@Override
 	public Long strlen(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.strlen(key);
 	}
 
 	@Override
 	public Long zadd(byte[] key, double score, byte[] member) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zadd(key, score, member);
 	}
 
 	@Override
 	public Long zadd(byte[] key, Map<byte[], Double> scoreMembers) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zadd(key, scoreMembers);
 	}
 
 	@Override
 	public Long zadd(byte[] key, double score, byte[] member, ZAddParams params) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zadd(key, score, member, params);
 	}
 
 	@Override
 	public Long zadd(byte[] key, Map<byte[], Double> scoreMembers, ZAddParams params) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zadd(key, scoreMembers, params);
 	}
 
 	@Override
 	public Set<byte[]> zrange(byte[] key, long start, long end) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrange(key, start, end);
 	}
 
 	@Override
 	public Long zrem(byte[] key, byte[]... member) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrem(key, member);
 	}
 
 	@Override
 	public Double zincrby(byte[] key, double score, byte[] member) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zincrby(key, score, member);
 	}
 
 	@Override
 	public Double zincrby(byte[] key, double score, byte[] member, ZIncrByParams params) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zincrby(key, score, member, params);
 	}
 
 	@Override
 	public Long zrank(byte[] key, byte[] member) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrank(key, member);
 	}
 
 	@Override
 	public Long zrevrank(byte[] key, byte[] member) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrevrank(key, member);
 	}
 
 	@Override
 	public Set<byte[]> zrevrange(byte[] key, long start, long end) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrevrange(key, start, end);
 	}
 
 	@Override
 	public Set<Tuple> zrangeWithScores(byte[] key, long start, long end) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrangeWithScores(key, start, end);
 	}
 
 	@Override
 	public Set<Tuple> zrevrangeWithScores(byte[] key, long start, long end) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrevrangeWithScores(key, start, end);
 	}
 
 	@Override
 	public Long zcard(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zcard(key);
 	}
 
 	@Override
 	public Double zscore(byte[] key, byte[] member) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zscore(key, member);
 	}
 
 	@Override
 	public List<byte[]> sort(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.sort(key);
 	}
 
 	@Override
 	public List<byte[]> sort(byte[] key, SortingParams sortingParameters) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.sort(key, sortingParameters);
 	}
 
 	@Override
 	public Long zcount(byte[] key, double min, double max) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zcount(key, min, max);
 	}
 
 	@Override
 	public Long zcount(byte[] key, byte[] min, byte[] max) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zcount(key, min, max);
 	}
 
 	@Override
 	public Set<byte[]> zrangeByScore(byte[] key, double min, double max) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrangeByScore(key, min, max);
 	}
 
 	@Override
 	public Set<byte[]> zrangeByScore(byte[] key, byte[] min, byte[] max) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrangeByScore(key, min, max);
 	}
 
 	@Override
 	public Set<byte[]> zrevrangeByScore(byte[] key, double max, double min) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrevrangeByScore(key, max, min);
 	}
 
 	@Override
 	public Set<byte[]> zrangeByScore(byte[] key, double min, double max, int offset, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrangeByScore(key, min, max, offset, count);
 	}
 
 	@Override
 	public Set<byte[]> zrevrangeByScore(byte[] key, byte[] max, byte[] min) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrevrangeByScore(key, max, min);
 	}
 
 	@Override
 	public Set<byte[]> zrangeByScore(byte[] key, byte[] min, byte[] max, int offset, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrangeByScore(key, min, max, offset, count);
 	}
 
 	@Override
 	public Set<byte[]> zrevrangeByScore(byte[] key, double max, double min, int offset, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrevrangeByScore(key, max, min, offset, count);
 	}
 
 	@Override
 	public Set<Tuple> zrangeByScoreWithScores(byte[] key, double min, double max) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrangeByScoreWithScores(key, min, max);
 	}
 
 	@Override
 	public Set<Tuple> zrevrangeByScoreWithScores(byte[] key, double max, double min) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrevrangeByScoreWithScores(key, min, max);
 	}
 
 	@Override
 	public Set<Tuple> zrangeByScoreWithScores(byte[] key, double min, double max, int offset, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrangeByScoreWithScores(key, min, max, offset, count);
 	}
 
 	@Override
 	public Set<byte[]> zrevrangeByScore(byte[] key, byte[] max, byte[] min, int offset, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrevrangeByScore(key, max, min, offset, count);
 	}
 
 	@Override
 	public Set<Tuple> zrangeByScoreWithScores(byte[] key, byte[] min, byte[] max) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrangeByScoreWithScores(key, min, max);
 	}
 
 	@Override
 	public Set<Tuple> zrevrangeByScoreWithScores(byte[] key, byte[] max, byte[] min) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrevrangeByScoreWithScores(key, min, max);
 	}
 
 	@Override
 	public Set<Tuple> zrangeByScoreWithScores(byte[] key, byte[] min, byte[] max, int offset, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrangeByScoreWithScores(key, min, max, offset, count);
 	}
 
 	@Override
 	public Set<Tuple> zrevrangeByScoreWithScores(byte[] key, double max, double min, int offset, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrevrangeByScoreWithScores(key, min, max, offset, count);
 	}
 
 	@Override
 	public Set<Tuple> zrevrangeByScoreWithScores(byte[] key, byte[] max, byte[] min, int offset, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrevrangeByScoreWithScores(key, min, max, offset, count);
 	}
 
 	@Override
 	public Long zremrangeByRank(byte[] key, long start, long end) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zremrangeByRank(key, start, end);
 	}
 
 	@Override
 	public Long zremrangeByScore(byte[] key, double start, double end) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zremrangeByScore(key, start, end);
 	}
 
 	@Override
 	public Long zremrangeByScore(byte[] key, byte[] start, byte[] end) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zremrangeByScore(key, start, end);
 	}
 
 	@Override
 	public Long zlexcount(byte[] key, byte[] min, byte[] max) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zlexcount(key, min, max);
 	}
 
 	@Override
 	public Set<byte[]> zrangeByLex(byte[] key, byte[] min, byte[] max) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrangeByLex(key, min, max);
 	}
 
 	@Override
 	public Set<byte[]> zrangeByLex(byte[] key, byte[] min, byte[] max, int offset, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrangeByLex(key, min, max, offset, count);
 	}
 
 	@Override
 	public Set<byte[]> zrevrangeByLex(byte[] key, byte[] max, byte[] min) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrevrangeByLex(key, min, max);
 	}
 
 	@Override
 	public Set<byte[]> zrevrangeByLex(byte[] key, byte[] max, byte[] min, int offset, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zrevrangeByLex(key, min, max, offset, count);
 	}
 
 	@Override
 	public Long zremrangeByLex(byte[] key, byte[] min, byte[] max) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zremrangeByLex(key, min, max);
 	}
 
 	@Override
 	public Long linsert(byte[] key, LIST_POSITION where, byte[] pivot, byte[] value) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.linsert(key, where, pivot, value);
 	}
 
 	@Override
 	public Long lpushx(byte[] key, byte[]... arg) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.lpushx(key, arg);
 	}
 
 	@Override
 	public Long rpushx(byte[] key, byte[]... arg) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.rpushx(key, arg);
 	}
 
 	@Override
 	public Long del(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.del(key);
 	}
 
 	@Override
 	public byte[] echo(byte[] arg) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.echo(arg);
 	}
 
 	@Override
 	public Long bitcount(byte[] key) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.bitcount(key);
 	}
 
 	@Override
 	public Long bitcount(byte[] key, long start, long end) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.bitcount(key, start, end);
 	}
 
 	@Override
 	public Long pfadd(byte[] key, byte[]... elements) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.pfadd(key, elements);
 	}
 
 	@Override
 	public long pfcount(byte[] key) {
-		// TODO Auto-generated method stub
-		return 0;
+		return jedisCluster.pfcount(key);
 	}
 
 	@Override
 	public Long geoadd(byte[] key, double longitude, double latitude, byte[] member) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.geoadd(key, longitude, latitude, member);
 	}
 
 	@Override
 	public Long geoadd(byte[] key, Map<byte[], GeoCoordinate> memberCoordinateMap) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.geoadd(key, memberCoordinateMap);
 	}
 
 	@Override
 	public Double geodist(byte[] key, byte[] member1, byte[] member2) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.geodist(key, member1, member2);
 	}
 
 	@Override
 	public Double geodist(byte[] key, byte[] member1, byte[] member2, GeoUnit unit) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.geodist(key, member1, member2, unit);
 	}
 
 	@Override
 	public List<byte[]> geohash(byte[] key, byte[]... members) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.geohash(key, members);
 	}
 
 	@Override
 	public List<GeoCoordinate> geopos(byte[] key, byte[]... members) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.geopos(key, members);
 	}
 
 	@Override
 	public List<GeoRadiusResponse> georadius(byte[] key, double longitude, double latitude, double radius,
 			GeoUnit unit) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.georadius(key, longitude, latitude, radius, unit);
 	}
 
 	@Override
 	public List<GeoRadiusResponse> georadius(byte[] key, double longitude, double latitude, double radius, GeoUnit unit,
 			GeoRadiusParam param) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.georadius(key, longitude, latitude, radius, unit, param);
 	}
 
 	@Override
 	public List<GeoRadiusResponse> georadiusByMember(byte[] key, byte[] member, double radius, GeoUnit unit) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.georadiusByMember(key, member, radius, unit);
 	}
 
 	@Override
 	public List<GeoRadiusResponse> georadiusByMember(byte[] key, byte[] member, double radius, GeoUnit unit,
 			GeoRadiusParam param) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.georadiusByMember(key, member, radius, unit, param);
 	}
 
 	@Override
 	public ScanResult<byte[]> scan(byte[] cursor, ScanParams params) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.scan(cursor, params);
 	}
 
 	@Override
 	public ScanResult<Entry<byte[], byte[]>> hscan(byte[] key, byte[] cursor) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.hscan(key, cursor);
 	}
 
 	@Override
 	public ScanResult<Entry<byte[], byte[]>> hscan(byte[] key, byte[] cursor, ScanParams params) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.hscan(key, cursor, params);
 	}
 
 	@Override
 	public ScanResult<byte[]> sscan(byte[] key, byte[] cursor) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.sscan(key, cursor);
 	}
 
 	@Override
 	public ScanResult<byte[]> sscan(byte[] key, byte[] cursor, ScanParams params) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.sscan(key, cursor);
 	}
 
 	@Override
 	public ScanResult<Tuple> zscan(byte[] key, byte[] cursor) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zscan(key, cursor);
 	}
 
 	@Override
 	public ScanResult<Tuple> zscan(byte[] key, byte[] cursor, ScanParams params) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.zscan(key, cursor, params);
 	}
 
 	@Override
 	public List<byte[]> bitfield(byte[] key, byte[]... arguments) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.bitfield(key, arguments);
 	}
 
 	@Override
+	@Deprecated
 	public String ping() {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.ping();
 	}
 
 	@Override
+	@Deprecated
 	public String quit() {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.quit();
 	}
 
 	@Override
+	@Deprecated
 	public String flushDB() {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.flushDB();
 	}
 
 	@Override
+	@Deprecated
 	public Long dbSize() {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.dbSize();
 	}
 
 	@Override
+	@Deprecated
 	public String select(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.select(index);
 	}
 
 	@Override
+	@Deprecated
 	public String flushAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.flushAll();
 	}
 
 	@Override
+	@Deprecated
 	public String auth(String password) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.auth(password);
 	}
 
 	@Override
+	@Deprecated
 	public String save() {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.save();
 	}
 
 	@Override
+	@Deprecated
 	public String bgsave() {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.bgsave();
 	}
 
 	@Override
+	@Deprecated
 	public String bgrewriteaof() {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.bgrewriteaof();
 	}
 
 	@Override
+	@Deprecated
 	public Long lastsave() {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.lastsave();
 	}
 
 	@Override
+	@Deprecated
 	public String shutdown() {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.shutdown();
 	}
 
 	@Override
+	@Deprecated
 	public String info() {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.info();
 	}
 
 	@Override
+	@Deprecated
 	public String info(String section) {
-		// TODO Auto-generated method stub
-		return null;
+		return jedisCluster.info(section);
 	}
 
 	@Deprecated

@@ -4,7 +4,7 @@
 
 # 实战交流群
 
-![image](https://github.com/hepyu/k8s-app-config/blob/master/images/K8S.png)
+![image](https://github.com/hepyu/saf/blob/master/images/k8s.png)
 
 # 姊妹项目
 

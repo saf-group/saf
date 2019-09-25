@@ -1,11 +1,3 @@
-# 微信公众号：千里行走
-
-# 头条技术号：实战架构
-
-# 实战交流群
-
-![image](https://github.com/hepyu/saf/blob/master/images/k8s.png)
-
 # 姊妹项目
 
 提供可以供实验的k8s配置：
@@ -118,3 +110,11 @@ web-allinone-demo:https://github.com/hepyu/saf/tree/master/saf-samples/saf-sampl
   ```bash
   mvn release:perform -DuseReleaseProfile=false
   ```
+  
+## 微信公众号：千里行走
+
+## 头条技术号：实战架构
+
+## 实战交流群
+
+![image](https://github.com/hepyu/saf/blob/master/images/k8s.png)

@@ -107,7 +107,7 @@ web-allinone-demo:https://github.com/hepyu/saf/tree/master/saf-samples/saf-sampl
 
 - 正式发布
 
-  ```bash
+  ```bash 
   mvn release:perform -DuseReleaseProfile=false
   ```
   

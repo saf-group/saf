@@ -20,12 +20,10 @@
 		<module>saf-samples</module>
 	</modules>
 
-	<!-- 
 	<scm>
-		<developerConnection>scm:git:https://gitlab.future.com/framework/saf.git</developerConnection>
+		<developerConnection>scm:git:https://github.com/hepyu/saf.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
-	 -->
 
 	<build>
 		<plugins>

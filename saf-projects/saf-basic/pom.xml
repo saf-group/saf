@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>saf-parent</artifactId>
 		<groupId>com.future.saf</groupId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 		<relativePath>../../saf-parent</relativePath>
 	</parent>
 

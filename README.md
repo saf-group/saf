@@ -4,7 +4,7 @@ saf完全基于springboot构建，所有组件的集成全部基于注解，各�
 
 1.设计文档
 
-[saf工程编排设计](https://github.com/hepyu/saf/wiki/project%E7%BC%96%E6%8E%92%E8%AE%BE%E8%AE%A1)
+[saf工程编排设计](https://github.com/hepyu/saf/wiki/saf%E5%B7%A5%E7%A8%8B%E7%BC%96%E6%8E%92%E8%AE%BE%E8%AE%A1)
 
 # (2).姊妹项目
 

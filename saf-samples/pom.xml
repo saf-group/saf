@@ -15,6 +15,7 @@
 
 	<modules>
 		<module>saf-sample-allinone</module>
+		<!-- <module>saf-sample-db</module>  -->
 	</modules>
 
 </project>

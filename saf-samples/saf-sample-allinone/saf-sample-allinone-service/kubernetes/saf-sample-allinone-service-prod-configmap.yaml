@@ -8,7 +8,8 @@ data:
     -XX:+PrintHeapAtGC -Dahas.namespace=prod -Dproject.name=saf-rpc-allinone -XX:+UnlockExperimentalVMOptions
     -XX:+UseCGroupMemoryLimitForHeap -XX:ParallelGCThreads=4
   appid: saf-sample-allinone-service
-  denv: pro
+  #denv: pro
+  denv: dev
   sentinel_server: ' '
   logMode: dev
 kind: ConfigMap

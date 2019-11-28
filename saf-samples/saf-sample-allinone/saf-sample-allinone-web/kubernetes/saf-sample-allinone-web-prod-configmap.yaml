@@ -7,7 +7,7 @@ data:
     -XX:NumberOfGCLogFiles=12 -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution
     -XX:+PrintHeapAtGC -Dahas.namespace=prod -Dproject.name=saf-web-allinone -XX:+UnlockExperimentalVMOptions
     -XX:+UseCGroupMemoryLimitForHeap -XX:ParallelGCThreads=4
-  appid: saf-sample-allinone-web
+  appid: demo-allinone-web
   denv: pro
   sentinel_server: ' '
 kind: ConfigMap

@@ -1,0 +1,8 @@
+db.user.type-aliases-package = com.future.saf.sample.allinone.model
+db.user.data-source.initial-size = 2
+db.user.data-source.max-active = 10
+db.user.data-source.username = root
+db.user.data-source.url = jdbc:mysql://mysql-min.mysql-min:3306/user?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+db.user.data-source.max-idle = 16
+db.user.data-source.password = 9ZeNk0DghH
+db.user.data-source.min-idle = 2

@@ -8,7 +8,7 @@ data:
     -XX:+PrintHeapAtGC -Dahas.namespace=prod -Dproject.name=saf-web-allinone -XX:+UnlockExperimentalVMOptions
     -XX:+UseCGroupMemoryLimitForHeap -XX:ParallelGCThreads=4
   appid: demo-allinone-web
-  denv: pro
+  denv: dev
   sentinel_server: ' '
 kind: ConfigMap
 metadata:

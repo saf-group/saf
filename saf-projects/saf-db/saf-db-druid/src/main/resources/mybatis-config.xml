@@ -21,11 +21,9 @@
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
 
-	<!-- 
 	<plugins>
 		<plugin
-			interceptor="com.future.saf.db.druid.MybatisProfilerPlugin" />
+			interceptor="com.future.saf.db.druid.plugin.DBPrometheusMonitorPlugin" />
 	</plugins>
-	 -->
 
 </configuration>

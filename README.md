@@ -43,7 +43,7 @@ kubernetes容器化时代下，移动互联网生产级别的轻量级高效后�
 
 完全根据springboot的包结构思想进行设计，采用父子双parent-pom方式组织包结构，见下图：
 
-![image](https://github.com/hepyu/saf-private/blob/master/images/saf-framework/%E5%8C%85%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1.jpg)
+![image](https://github.com/hepyu/saf/blob/master/images/saf-framework/%E5%8C%85%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1.jpg)
 
 ## 1.saf-parent
 

@@ -20,8 +20,9 @@ import lombok.extern.slf4j.Slf4j;
  * Created by hepengyuan on 2018/09/27.
  */
 @SpringBootApplication
-@EnableApolloConfig(value = { "application", "demo.motan.referer.user", "demo.motan.referer.mall", "demo.public-config.sms",
-		"demo.public-config.pay", "demo.public-config.spide" })
+@EnableApolloConfig(value = { "application", "saf.actuator", "saf.base.registry", "saf.log.level", "saf.monitor",
+		"demo.motan.referer.user", "demo.motan.referer.mall", "demo.public-config.sms", "demo.public-config.pay",
+		"demo.public-config.spide" })
 @EnableApolloConfigAutoChangePrint
 @EnableMotan(beanNamePrefix = "user", instance = "user")
 @EnableMotan(beanNamePrefix = "mall", instance = "mall")

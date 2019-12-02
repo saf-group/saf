@@ -96,17 +96,27 @@ public class AllinoneListener implements ApplicationListener<ContextRefreshedEve
 
 				while (true) {
 					try {
+						// (1).rocketmq
+						SendResult sendResult1 = producer.send(TOPIC, "producer1-haha:" + System.currentTimeMillis());
+						log.info("------(1).rocketmq------");
+						log.info("sendResult1:" + sendResult1);
+
+						// (2).redisCluster
+						log.info("------(2).redisCluster------");
 						ShopDetailDTO shopDTO = shopService.getShopDetail(1L);
 						log.info("shopDetail:" + shopDTO.toString());
 
 						UserDetailDTO userDTO = userService.getUserDetail(1L);
 						log.info("userDetail:" + userDTO.toString());
 
+						// (3).apollo config bean
+						log.info("------(3).apollo config bean------");
 						log.info("payConfigBean:" + payConfigBean.toString());
-
 						log.info("smsConfigBean:" + smsConfigBean.toString());
 						log.info("spideConfigBean:" + spideConfigBean.toString());
 
+						// (4).jvm guava cache
+						log.info("------(4).jvm guava cache------");
 						ShopModel shopModel = shopModelLocalCache.get(1L);
 						log.info(shopModel.toString());
 
@@ -118,14 +128,10 @@ public class AllinoneListener implements ApplicationListener<ContextRefreshedEve
 
 						List<ShopModel> shopModelList = shopModelsafWrapperLocalCache.getAll(shopIdList);
 						log.info(JSONObject.toJSONString(shopModelList));
-
 						log.info(JSONObject.toJSONString("hpy:" + shopModelsafWrapperLocalCache.get(243242352L)));
 
-						SendResult sendResult1 = producer.send(TOPIC, "producer1-haha:" + System.currentTimeMillis());
-						log.info("sendResult1:" + sendResult1);
-
-						log.info(smsConfigBean.getAliyunSMSUrl());
-
+						// (5).mysql mapper
+						log.info("------(5).mysql mapper------");
 						UserModel userModel = userMapper.findById(1L);
 						shopModel = shopMapper.findById(1L);
 
@@ -136,14 +142,13 @@ public class AllinoneListener implements ApplicationListener<ContextRefreshedEve
 					} catch (Exception e) {
 						log.error(e.getMessage(), e);
 						try {
-							TimeUnit.SECONDS.sleep(300);
+							TimeUnit.SECONDS.sleep(1);
 						} catch (InterruptedException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+							log.error(e1.getMessage(), e1);
 						}
 					} finally {
 						try {
-							TimeUnit.SECONDS.sleep(300);
+							TimeUnit.SECONDS.sleep(1);
 						} catch (Exception e) {
 							log.error(e.getMessage(), e);
 						}

@@ -4,6 +4,7 @@ metadata:
   labels:
     app: saf-sample-allinone-web-prod
     inc-app: saf-sample-allinone-web-prod
+    framework: saf
   name: saf-sample-allinone-web-prod
   namespace: inc
 spec:
@@ -24,6 +25,7 @@ spec:
         app: saf-sample-allinone-web-prod
         inc-app: saf-sample-allinone-web-prod
         ns: inc
+        framework: saf
     spec:
       containers:
       - envFrom:

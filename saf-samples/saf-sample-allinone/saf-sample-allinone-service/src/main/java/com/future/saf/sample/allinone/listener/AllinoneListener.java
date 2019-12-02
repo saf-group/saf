@@ -25,7 +25,10 @@ import com.future.saf.sample.allinone.config.SMSConfigBean;
 import com.future.saf.sample.allinone.config.SpideConfigBean;
 import com.future.saf.sample.allinone.localcache.ShopModelGuavaLocalCache;
 import com.future.saf.sample.allinone.localcache.ShopModelSafWrapperLocalCache;
+import com.future.saf.sample.allinone.mapper.malldb.ShopMapper;
+import com.future.saf.sample.allinone.mapper.userdb.UserMapper;
 import com.future.saf.sample.allinone.model.ShopModel;
+import com.future.saf.sample.allinone.model.UserModel;
 import com.future.saf.sample.allinone.remote.dto.ShopDetailDTO;
 import com.future.saf.sample.allinone.remote.dto.UserDetailDTO;
 import com.future.saf.sample.allinone.service.ShopService;
@@ -51,6 +54,12 @@ public class AllinoneListener implements ApplicationListener<ContextRefreshedEve
 
 	@Autowired
 	private SpideConfigBean spideConfigBean;
+
+	@Autowired
+	private UserMapper userMapper;
+
+	@Autowired
+	private ShopMapper shopMapper;
 
 	@Autowired
 	private ShopModelGuavaLocalCache shopModelLocalCache;
@@ -113,9 +122,15 @@ public class AllinoneListener implements ApplicationListener<ContextRefreshedEve
 						log.info(JSONObject.toJSONString("hpy:" + shopModelsafWrapperLocalCache.get(243242352L)));
 
 						SendResult sendResult1 = producer.send(TOPIC, "producer1-haha:" + System.currentTimeMillis());
-						System.out.println(sendResult1);
+						log.info("sendResult1:" + sendResult1);
 
-						System.out.println(smsConfigBean.getAliyunSMSUrl());
+						log.info(smsConfigBean.getAliyunSMSUrl());
+
+						UserModel userModel = userMapper.findById(1L);
+						shopModel = shopMapper.findById(1L);
+
+						log.info("userModel from mysql:" + userModel);
+						log.info("shopModel from mysql:" + shopModel);
 
 						// break;
 					} catch (Exception e) {

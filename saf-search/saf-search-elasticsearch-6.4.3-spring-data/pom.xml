@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>saf</artifactId>
+		<groupId>com.future.saf</groupId>
+		<version>1.0.2-SNAPSHOT</version>
+		<relativePath>../../</relativePath>
+	</parent>
+
+	<artifactId>saf-search-elasticsearch-6.4.3-spring-data</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-configcenter-basic</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-elasticsearch</artifactId>
+		</dependency>
+	</dependencies>
+</project>

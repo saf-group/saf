@@ -6,27 +6,16 @@
 		<artifactId>saf</artifactId>
 		<groupId>com.future.saf</groupId>
 		<version>1.0.2-SNAPSHOT</version>
-		<relativePath>../saf-parent</relativePath>
+		<relativePath>../</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>saf-projects</artifactId>
+	<artifactId>saf-configcenter</artifactId>
 	<packaging>pom</packaging>
+
 	<modules>
-
-		<module>saf-basic</module>
- 		<module>saf-logging</module>
- 		<module>saf-core</module>
-
- 		<module>saf-configcenter</module>
-  		<module>saf-search</module>
-  		<module>saf-mq</module>
-  		<module>saf-cache</module>
-  		<module>saf-db</module>
-  		<module>saf-rpc</module>
-  		<module>saf-web</module>
-
-  		<module>saf-monitor</module>
-
+		<module>saf-configcenter-apollo</module>
+		<module>saf-configcenter-basic</module>
 	</modules>
+
 </project>

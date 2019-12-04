@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -9,7 +11,7 @@
 
 	<groupId>com.future.saf</groupId>
 	<artifactId>saf-parent</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -45,78 +47,78 @@
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-basic</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-core</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-logging-basic</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-logging-apollo</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-monitor-basic</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-monitor-prometheus</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-configcenter-apollo</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-cache-redis</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-cache-jvm</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-db-druid</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-mq-rocketmq</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-web-basic</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-web-classic</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-rpc-motan</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-configcenter-basic</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 
 			<!-- (1).begin: all commons -->
@@ -536,8 +538,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-  <scm>
-    <tag>saf-1.0.2</tag>
-  </scm>
 </project>

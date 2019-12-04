@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>saf</artifactId>
 	<groupId>com.future.saf</groupId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -20,7 +20,7 @@
 
 	<scm>
 		<developerConnection>scm:git:https://github.com/hepyu/saf.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>saf-1.0.1</tag>
 	</scm>
 
 	<build>

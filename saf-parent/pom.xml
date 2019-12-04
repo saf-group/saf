@@ -46,21 +46,6 @@
 
 			<dependency>
 				<groupId>com.future.saf</groupId>
-				<artifactId>saf-common</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>com.future.saf</groupId>
-				<artifactId>saf-json</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>com.future.saf</groupId>
-				<artifactId>saf-json-fastjson</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>com.future.saf</groupId>
 				<artifactId>saf-basic</artifactId>
 				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
@@ -535,10 +520,10 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-jar-plugin</artifactId> -->
+<!-- 			</plugin> -->
 		</plugins>
 	</build>
 </project>

@@ -17,10 +17,6 @@
 		</dependency>
 		<dependency>
 			<groupId>com.future.saf</groupId>
-			<artifactId>saf-common</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.future.saf</groupId>
 			<artifactId>saf-logging-apollo</artifactId>
 		</dependency>
 

@@ -18,10 +18,6 @@
 		</dependency>
 		<dependency>
 			<groupId>com.future.saf</groupId>
-			<artifactId>saf-common</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.future.saf</groupId>
 			<artifactId>saf-monitor-basic</artifactId>
 		</dependency>
 

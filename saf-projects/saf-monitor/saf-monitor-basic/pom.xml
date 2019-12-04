@@ -16,9 +16,5 @@
 			<groupId>com.future.saf</groupId>
 			<artifactId>saf-core</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.future.saf</groupId>
-			<artifactId>saf-common</artifactId>
-		</dependency>
 	</dependencies>
 </project>

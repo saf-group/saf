@@ -14,23 +14,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.future.saf</groupId>
-			<artifactId>saf-basic</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.future.saf</groupId>
 			<artifactId>saf-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.future.saf</groupId>
-			<artifactId>saf-common</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.future.saf</groupId>
 			<artifactId>saf-logging-basic</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.future.saf</groupId>
-			<artifactId>saf-json-fastjson</artifactId>
 		</dependency>
 	</dependencies>
 </project>

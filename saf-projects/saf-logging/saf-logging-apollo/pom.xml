@@ -22,9 +22,5 @@
 			<artifactId>saf-configcenter-apollo</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>com.future.saf</groupId>
-			<artifactId>saf-common</artifactId>
-		</dependency>
 	</dependencies>
 </project>

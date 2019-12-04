@@ -15,10 +15,5 @@
 			<groupId>com.future.saf</groupId>
 			<artifactId>saf-core</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-		</dependency>
 	</dependencies>
 </project>

@@ -40,10 +40,6 @@
 		</dependency>
 		<dependency>
 			<groupId>com.future.saf</groupId>
-			<artifactId>saf-boot-starter-logging-apollo</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.future.saf</groupId>
 			<artifactId>saf-sample-allinone-api</artifactId>
 		</dependency>
 	</dependencies>

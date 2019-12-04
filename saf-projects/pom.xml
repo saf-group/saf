@@ -16,18 +16,17 @@
 
 		<module>saf-basic</module>
 		<module>saf-logging</module>
-
 		<module>saf-core</module>
 
 		<module>saf-configcenter</module>
-		<module>saf-search</module>
-		<module>saf-mq</module>
-		<module>saf-cache</module>
-		<module>saf-db</module>
-		<module>saf-rpc</module>
-		<module>saf-web</module>
+ 		<module>saf-search</module>
+ 		<module>saf-mq</module>
+ 		<module>saf-cache</module>
+ 		<module>saf-db</module>
+ 		<module>saf-rpc</module>
+ 		<module>saf-web</module>
 
-		<module>saf-monitor</module>
+ 		<module>saf-monitor</module>
 
 	</modules>
 </project>

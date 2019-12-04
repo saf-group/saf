@@ -1,3 +1,0 @@
-biz.sms.mobileSMSUrl = https://sms.chinamobile.com/sendSMS
-biz.sms.aliyunSMSUrl = https://sms.aliyun.com/sendSMS
-biz.sms.unicomSMSUrl = https://sms.chinaunicom.com/sendSMS

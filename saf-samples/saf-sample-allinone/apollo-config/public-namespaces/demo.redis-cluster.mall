@@ -1,5 +1,0 @@
-redis.cluster.mall.pool.max-total = 301
-redis.cluster.mall.pool.max-wait-millis = 6001
-redis.cluster.mall.pool.max-idle = 11
-redis.cluster.mall.pool.min-idle = 1
-redis.cluster.mall.address = redis-hkc-0.redis-hkc.redis-cluster-min.svc.cluster.local:9720,redis-hkc-1.redis-hkc.redis-cluster-min.svc.cluster.local:9720,redis-hkc-2.redis-hkc.redis-cluster-min.svc.cluster.local:9720,redis-hkc-3.redis-hkc.redis-cluster-min.svc.cluster.local:9720,redis-hkc-4.redis-hkc.redis-cluster-min.svc.cluster.local:9720,redis-hkc-5.redis-hkc.redis-cluster-min.svc.cluster.local:9720

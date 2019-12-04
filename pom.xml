@@ -11,11 +11,6 @@
 	<modules>
 		<module>saf-parent</module>
 		<module>saf-projects</module>
-
-		<module>saf-boot-parent</module>
-		<module>saf-boot-starters</module>
-
-		<module>saf-samples</module>
 	</modules>
 
 	<scm>

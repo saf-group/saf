@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -444,11 +446,20 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<!-- <distributionManagement> <repository> <id>future_releases</id> <name>releases</name> 
-		<url>http://maven.future.com:8002/nexus/content/repositories/releases</url> 
-		</repository> <snapshotRepository> <id>future_snapshots</id> <name>snapshots</name> 
-		<url>http://maven.future.com:8002/nexus/content/repositories/snapshots</url> 
-		</snapshotRepository> </distributionManagement> -->
+	<distributionManagement>
+		<repository>
+			<id>future_releases</id>
+			<name>releases</name>
+			<!-- <url>http://repo-nexus.future.com:30834/nexus/content/repositories/releases</url> -->
+			<url>http://repo-nexus.future.com:30834/repository/maven-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>future_snapshots</id>
+			<name>snapshots</name>
+			<!-- <url>http://repo-nexus.future.com:30834/nexus/content/repositories/snapshots</url> -->
+			<url>http://repo-nexus.future.com:30834/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 	<repositories>
 		<repository>
 			<id>central-repos</id>

@@ -51,6 +51,9 @@ crashlytics-build.properties
 ### SVN template
 .svn/
 
+### maven
+*.releaseBackup
+release.properties
 
 ### Java template
 *.class

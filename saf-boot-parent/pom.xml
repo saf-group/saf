@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>saf-parent</artifactId>
 		<groupId>com.future.saf</groupId>
-		<version>1.0.1</version>
+		<version>1.0.2-SNAPSHOT</version>
 		<relativePath>../saf-parent</relativePath>
 	</parent>
 
@@ -16,57 +16,57 @@
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-boot-starter-basic</artifactId>
-				<version>1.0.1</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-boot-starter-web-classic</artifactId>
-				<version>1.0.1</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-boot-starter-db-druid</artifactId>
-				<version>1.0.1</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-boot-starter-rpc-motan</artifactId>
-				<version>1.0.1</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-boot-starter-cache-redis</artifactId>
-				<version>1.0.1</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-boot-starter-cache-jvm</artifactId>
-				<version>1.0.1</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-boot-starter-configcenter-apollo</artifactId>
-				<version>1.0.1</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-boot-starter-mq-rocketmq</artifactId>
-				<version>1.0.1</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-boot-starter-search-elasticsearch</artifactId>
-				<version>1.0.1</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-boot-starter-logging-apollo</artifactId>
-				<version>1.0.1</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-boot-starter-monitor-prometheus</artifactId>
-				<version>1.0.1</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

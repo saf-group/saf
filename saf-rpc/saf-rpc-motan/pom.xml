@@ -34,10 +34,6 @@
 			<artifactId>motan-registry-zookeeper</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.weibo</groupId>
-			<artifactId>motan-springsupport</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>com.future.saf</groupId>
 			<artifactId>saf-monitor-prometheus</artifactId>
 		</dependency>

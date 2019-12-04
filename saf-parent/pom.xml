@@ -9,7 +9,7 @@
 
 	<groupId>com.future.saf</groupId>
 	<artifactId>saf-parent</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -45,93 +45,93 @@
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-common</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-json</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-json-fastjson</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-basic</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-core</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-logging-basic</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-logging-apollo</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-monitor-basic</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-monitor-prometheus</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-configcenter-apollo</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-cache-redis</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-cache-jvm</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-db-druid</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-mq-rocketmq</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-web-basic</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-web-classic</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-rpc-motan</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-configcenter-basic</artifactId>
-				<version>1.0.2-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 
 			<!-- (1).begin: all commons -->

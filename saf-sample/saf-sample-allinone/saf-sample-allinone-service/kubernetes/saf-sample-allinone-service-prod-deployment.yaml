@@ -31,7 +31,7 @@ spec:
       - envFrom:
         - configMapRef:
             name: saf-sample-allinone-service-prod
-        image: saf-sample-allinone-service:1.0.1-SNAPSHOT
+        image: saf-sample-allinone-service:1.0.3-SNAPSHOT
         imagePullPolicy: IfNotPresent
         name: saf-sample-allinone-service-prod
         ports:

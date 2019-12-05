@@ -1,0 +1,1 @@
+rocketmq.namesrv.rocketmq-c0.namesrvAddr = service-rocketmq-min-c0-namesrv-prod.rocketmq-min:9876

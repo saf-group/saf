@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>saf</artifactId>
+		<groupId>com.future.saf</groupId>
+		<version>1.0.3-SNAPSHOT</version>
+		<relativePath>../../</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>saf-sample-allinone-service</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-sample-allinone-api</artifactId>
+			<version>1.0.3-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-cache-jvm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-cache-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-configcenter-apollo</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-db-druid</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-mq-rocketmq</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-rpc-motan</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-web-classic</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.future.saf.sample.allinone.SafSampleAllinoneRPCApplication</mainClass>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

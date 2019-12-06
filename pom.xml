@@ -31,7 +31,7 @@
 	</modules>
 
 	<scm>
-		<developerConnection>scm:git:https://github.com/hepyu/saf.git</developerConnection>
+		<developerConnection>scm:git:https://github.com/saf-group/saf.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 

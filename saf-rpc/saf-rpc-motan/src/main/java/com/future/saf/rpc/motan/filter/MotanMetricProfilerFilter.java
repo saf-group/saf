@@ -62,7 +62,7 @@ public class MotanMetricProfilerFilter implements Filter {
 		boolean isError = false;
 		AbstractTimer<?, ?, ?> timer = PROFILE_MOTAN_IN.startTimer(clazz, method);
 		// 判断是否是第一次访问
-		final boolean firstAccessFlag = beforeCall(method, clazz, caller);
+		final boolean firstAccessFlag = beforeCall(clazz, method, caller);
 		try {
 			Response response = caller.call(request);
 			if (response == null) {

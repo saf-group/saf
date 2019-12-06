@@ -27,7 +27,6 @@ public class PrometheusMetricProfilerProcessor extends AbstractMetricProfilerPro
 
 	@Override
 	public void inc(String... labelValues) {
-		stat.startTimer(labelValues);
 		stat.inc(labelValues);
 	}
 

@@ -1,8 +1,11 @@
 package com.future.saf.monitor.prometheus.metric.profile;
 
+import java.util.concurrent.TimeUnit;
+
 import com.future.saf.monitor.basic.AbstractMetricProfileDefinition;
 import com.future.saf.monitor.basic.AbstractTimer;
 import com.future.saf.monitor.exception.MonitorInitException;
+import com.future.saf.monitor.prometheus.util.PrometheusTimeUtil;
 
 import io.prometheus.client.Counter;
 import io.prometheus.client.Gauge;
@@ -55,6 +58,13 @@ public class PrometheusMetricProfileDefinition extends AbstractMetricProfileDefi
 		return new PrometheusTimer(timer, max, min);
 	}
 
+	void observe(long value, TimeUnit timeUnit, String... labelValues) {
+		final double elapsedSeconds = PrometheusTimeUtil.convertNanosToSeconds(timeUnit.toNanos(value));
+		setMax(elapsedSeconds, labelValues);
+		setMin(elapsedSeconds, labelValues);
+		histogram.labels(labelValues).observe(elapsedSeconds);
+	}
+
 	public void inc(String... labelValues) {
 		concurrent.labels(labelValues).inc();
 	}
@@ -66,6 +76,20 @@ public class PrometheusMetricProfileDefinition extends AbstractMetricProfileDefi
 	public void reset() {
 		min.clear();
 		max.clear();
+	}
+
+	private void setMax(double seconds, String... labelValues) {
+		final Gauge.Child maxWithlabelNames = max.labels(labelValues);
+		if (seconds > maxWithlabelNames.get()) {
+			maxWithlabelNames.set(seconds);
+		}
+	}
+
+	private void setMin(double seconds, String... labelValues) {
+		final Gauge.Child minWithlabelNames = min.labels(labelValues);
+		if (seconds < minWithlabelNames.get() || minWithlabelNames.get() == 0D) {
+			minWithlabelNames.set(seconds);
+		}
 	}
 
 }

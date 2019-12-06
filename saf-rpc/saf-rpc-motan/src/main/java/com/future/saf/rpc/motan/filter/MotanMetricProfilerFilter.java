@@ -60,7 +60,6 @@ public class MotanMetricProfilerFilter implements Filter {
 		long begin = System.nanoTime();
 		boolean specialException = true;
 		boolean isError = false;
-		AbstractTimer<?, ?, ?> timer = PROFILE_MOTAN_IN.startTimer(clazz, method);
 		// 判断是否是第一次访问
 		final boolean firstAccessFlag = beforeCall(clazz, method, caller);
 		try {
@@ -84,15 +83,15 @@ public class MotanMetricProfilerFilter implements Filter {
 			if (specialException) {
 				isError = true;
 			}
-			afterCall(timer, clazz, method, caller, begin, isError, firstAccessFlag);
+			afterCall(clazz, method, caller, begin, isError, firstAccessFlag);
 		}
 	}
 
-	private void afterCall(AbstractTimer<?, ?, ?> timer, String clazz, String method, Caller<?> caller, long begin,
-			boolean isError, boolean firstAccessFlag) {
+	private void afterCall(String clazz, String method, Caller<?> caller, long begin, boolean isError,
+			boolean firstAccessFlag) {
 		if (caller instanceof Provider) {
 			PROFILE_MOTAN_IN.dec(clazz, method);
-			timer.observeDuration(clazz, method);
+			PROFILE_MOTAN_IN.observe(System.nanoTime() - begin, TimeUnit.NANOSECONDS, clazz, method);
 			if (isError) {
 				PROFILE_MOTAN_IN.error(clazz, method);
 			}
@@ -102,7 +101,7 @@ public class MotanMetricProfilerFilter implements Filter {
 			}
 		} else {
 			PROFILE_MOTAN_OUT.dec(clazz, method);
-			timer.observeDuration(clazz, method);
+			PROFILE_MOTAN_OUT.observe(System.nanoTime() - begin, TimeUnit.NANOSECONDS, clazz, method);
 			if (isError) {
 				PROFILE_MOTAN_OUT.error(clazz, method);
 			}

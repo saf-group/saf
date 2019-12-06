@@ -1,9 +1,13 @@
 package com.future.saf.monitor.prometheus.metric.profile;
 
+import java.util.concurrent.TimeUnit;
+
 import com.future.saf.monitor.basic.AbstractMetricProfilerProcessor;
 import com.future.saf.monitor.basic.AbstractTimer;
 import com.future.saf.monitor.exception.MonitorInitException;
+import com.future.saf.monitor.prometheus.util.PrometheusTimeUtil;
 
+//import io.micrometer.core.instrument.util.TimeUtils;
 import io.prometheus.client.Gauge;
 import io.prometheus.client.Histogram.Timer;
 
@@ -43,6 +47,11 @@ public class PrometheusMetricProfilerProcessor extends AbstractMetricProfilerPro
 	@Override
 	public AbstractTimer<Timer, Gauge, Gauge> startTimer(String... labelValues) {
 		return stat.startTimer(labelValues);
+	}
+
+	@Override
+	public void observe(long value, TimeUnit timeUnit,String... labelValues) {
+		stat.observe(value, timeUnit, labelValues);
 	}
 
 }

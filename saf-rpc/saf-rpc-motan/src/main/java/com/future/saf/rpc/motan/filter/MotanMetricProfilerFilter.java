@@ -3,8 +3,10 @@ package com.future.saf.rpc.motan.filter;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
+
+import com.future.saf.monitor.basic.AbstractTimer;
 import com.future.saf.monitor.config.MonitorConfig;
-import com.future.saf.monitor.prometheus.metric.profile.LatencyMetricProfilerProcessor;
+import com.future.saf.monitor.prometheus.metric.profile.PrometheusMetricProfilerProcessor;
 import com.future.saf.rpc.motan.util.MotanUtil;
 import com.google.common.collect.Sets;
 import com.weibo.api.motan.core.extension.Activation;
@@ -23,10 +25,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MotanMetricProfilerFilter implements Filter {
 
-	private static final LatencyMetricProfilerProcessor PROFILE_MOTAN_IN = new LatencyMetricProfilerProcessor(
+	private static final PrometheusMetricProfilerProcessor PROFILE_MOTAN_IN = new PrometheusMetricProfilerProcessor(
 			"motan_requests_in", "motan:in", "motan_requests_in", new String[] { "class", "method" });
 
-	private static final LatencyMetricProfilerProcessor PROFILE_MOTAN_OUT = new LatencyMetricProfilerProcessor(
+	private static final PrometheusMetricProfilerProcessor PROFILE_MOTAN_OUT = new PrometheusMetricProfilerProcessor(
 			"motan_requests_out", "motan:out", "motan_requests_out", new String[] { "class", "method" });
 
 	private static final Gauge PROFILE_MOTAN_FTL_IN = Gauge.build().name("motan_requests_in_ftl")
@@ -58,6 +60,7 @@ public class MotanMetricProfilerFilter implements Filter {
 		long begin = System.nanoTime();
 		boolean specialException = true;
 		boolean isError = false;
+		AbstractTimer<?, ?, ?> timer = PROFILE_MOTAN_IN.startTimer(clazz, method);
 		// 判断是否是第一次访问
 		final boolean firstAccessFlag = beforeCall(method, clazz, caller);
 		try {
@@ -81,14 +84,15 @@ public class MotanMetricProfilerFilter implements Filter {
 			if (specialException) {
 				isError = true;
 			}
-			afterCall(clazz, method, caller, begin, isError, firstAccessFlag);
+			afterCall(timer, clazz, method, caller, begin, isError, firstAccessFlag);
 		}
 	}
 
-	private void afterCall(String clazz, String method, Caller<?> caller, long begin, boolean isError,
-			boolean firstAccessFlag) {
+	private void afterCall(AbstractTimer<?, ?, ?> timer, String clazz, String method, Caller<?> caller, long begin,
+			boolean isError, boolean firstAccessFlag) {
 		if (caller instanceof Provider) {
-			PROFILE_MOTAN_IN.end(clazz, method);
+			PROFILE_MOTAN_IN.dec(clazz, method);
+			timer.observeDuration(clazz, method);
 			if (isError) {
 				PROFILE_MOTAN_IN.error(clazz, method);
 			}
@@ -97,7 +101,8 @@ public class MotanMetricProfilerFilter implements Filter {
 						.set(TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - begin));
 			}
 		} else {
-			PROFILE_MOTAN_OUT.end(clazz, method);
+			PROFILE_MOTAN_OUT.dec(clazz, method);
+			timer.observeDuration(clazz, method);
 			if (isError) {
 				PROFILE_MOTAN_OUT.error(clazz, method);
 			}
@@ -116,13 +121,13 @@ public class MotanMetricProfilerFilter implements Filter {
 				FTL_IN_MARKED_SET.add(key);
 				firstAccessFlag = true;
 			}
-			PROFILE_MOTAN_IN.begin(clazz, method);
+			PROFILE_MOTAN_IN.inc(clazz, method);
 		} else {
 			if (!FTL_OUT_MARKED_SET.contains(key)) {
 				FTL_OUT_MARKED_SET.add(key);
 				firstAccessFlag = true;
 			}
-			PROFILE_MOTAN_OUT.begin(clazz, method);
+			PROFILE_MOTAN_OUT.inc(clazz, method);
 		}
 		return firstAccessFlag;
 	}

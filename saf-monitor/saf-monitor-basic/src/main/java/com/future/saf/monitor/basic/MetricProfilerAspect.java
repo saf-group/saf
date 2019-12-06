@@ -14,7 +14,7 @@ import com.future.saf.monitor.config.MonitorConfig;
 public class MetricProfilerAspect {
 
 	@Resource(name = "customMetricProfileProcessor")
-	private AbstractMetricProfilerProcessor customMetricProfileProcessor;
+	private AbstractMetricProfilerProcessor<?,?,?> customMetricProfileProcessor;
 
 	@Autowired
 	private MonitorConfig monitorConfig;
@@ -32,14 +32,16 @@ public class MetricProfilerAspect {
 		final String clazz = joinPoint.getSignature().getDeclaringType().getSimpleName();
 		final String method = joinPoint.getSignature().toShortString();
 
+		AbstractTimer<?,?,?> timer = customMetricProfileProcessor.startTimer(clazz, method);
 		try {
-			customMetricProfileProcessor.begin(clazz, method);
+			customMetricProfileProcessor.inc(clazz, method);
 			return joinPoint.proceed();
 		} catch (Throwable throwable) {
 			customMetricProfileProcessor.error(clazz, method);
 			throw throwable;
 		} finally {
-			customMetricProfileProcessor.end(clazz, method);
+			customMetricProfileProcessor.dec(clazz, method);
+			timer.observeDuration(clazz, method);
 		}
 	}
 }

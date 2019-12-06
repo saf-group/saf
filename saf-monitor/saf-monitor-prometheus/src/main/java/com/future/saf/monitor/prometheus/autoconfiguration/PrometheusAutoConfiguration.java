@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import com.future.saf.monitor.basic.AbstractMetricProfilerProcessor;
 import com.future.saf.monitor.basic.MetricProfilerAspect;
 import com.future.saf.monitor.config.MonitorConfig;
-import com.future.saf.monitor.prometheus.metric.profile.LatencyMetricProfilerProcessor;
+import com.future.saf.monitor.prometheus.metric.profile.PrometheusMetricProfilerProcessor;
 
 public class PrometheusAutoConfiguration {
 
@@ -21,7 +21,7 @@ public class PrometheusAutoConfiguration {
 
 	@Bean(name = "customMetricProfileProcessor")
 	public AbstractMetricProfilerProcessor customMetricProfileProcessor() {
-		LatencyMetricProfilerProcessor processor = new LatencyMetricProfilerProcessor("custom", "custom", "custom",
+		PrometheusMetricProfilerProcessor processor = new PrometheusMetricProfilerProcessor("custom", "custom", "custom",
 				new String[] { "class", "method" });
 		return processor;
 	}

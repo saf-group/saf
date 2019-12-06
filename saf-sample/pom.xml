@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<parent>
 		<artifactId>saf</artifactId>
 		<groupId>com.future.saf</groupId>
 		<version>1.0.4-SNAPSHOT</version>
-		<relativePath>../</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -17,63 +18,68 @@
 		<module>saf-sample-allinone</module>
 	</modules>
 
+	<properties>
+		<saf.version>1.0.4-SNAPSHOT</saf.version>
+		<saf-sample.version>1.0.4-SNAPSHOT</saf-sample.version>
+	</properties>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-sample-allinone-api</artifactId>
-				<version>1.0.3-SNAPSHOT</version>
+				<version>${saf-sample.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-basic</artifactId>
-				<version>1.0.3-SNAPSHOT</version>
+				<version>${saf.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-cache-jvm</artifactId>
-				<version>1.0.3-SNAPSHOT</version>
+				<version>${saf.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-cache-redis</artifactId>
-				<version>1.0.3-SNAPSHOT</version>
+				<version>${saf.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-configcenter-apollo</artifactId>
-				<version>1.0.3-SNAPSHOT</version>
+				<version>${saf.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-db-druid</artifactId>
-				<version>1.0.3-SNAPSHOT</version>
+				<version>${saf.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-mq-rocketmq</artifactId>
-				<version>1.0.3-SNAPSHOT</version>
+				<version>${saf.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-core</artifactId>
-				<version>1.0.3-SNAPSHOT</version>
+				<version>${saf.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-rpc-motan</artifactId>
-				<version>1.0.3-SNAPSHOT</version>
+				<version>${saf.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-web-classic</artifactId>
-				<version>1.0.3-SNAPSHOT</version>
+				<version>${saf.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-web-classic</artifactId>
-				<version>1.0.3-SNAPSHOT</version>
+				<version>${saf.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

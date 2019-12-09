@@ -1,3 +1,0 @@
-monitor.prometheus.port = 9145
-monitor.log.delay = 10
-monitor.log.period = 10

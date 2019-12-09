@@ -1,5 +1,0 @@
-app.logging.level.performance = info
-app.logging.level.com.future = info
-app.logging.level.access = info
-app.logging.level.com.future.saf = info
-app.logging.level.root = info

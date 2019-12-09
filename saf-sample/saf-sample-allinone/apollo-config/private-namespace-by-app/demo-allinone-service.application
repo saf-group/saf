@@ -1,5 +1,0 @@
-server.port = 8080
-app.logging.path = /data/inc/logs/saf.rpc.allinone
-
-motan.user.port = 1234
-motan.mall.port = 1235

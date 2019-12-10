@@ -1,3 +1,11 @@
+## 微信公众号：千里行走
+
+## 头条技术号：实战架构
+
+## 实战交流群
+
+<img src="https://github.com/hepyu/saf/blob/master/images/k8s.png" width="25%">
+
 saf完全基于springboot构建，所有组件的集成全部基于注解，各类组件的配置全部基于配置中心，本地做到0配置文件。
 
 |              版本               |                            概述                              |                       缺点/问题                       |
@@ -88,26 +96,6 @@ elasticsearch这类组件和特殊，因为es的不同版本的api差异极大�
 
 [saf-2：部署saf-sample-allinone]()
 
-# (6).TODO
-
-目前的master code需要继续打磨，暂时不到发布release的阶段；
-
-由于笔者完全重构了我们生产级的code，特别是工程设计，所以目前的master有可能存在bug，需要完善全方位的测试用例，继续打磨；
-
-目前master的code程度，跑提供的allinone demo完全没有问题；
-
-1.打磨saf code，完成第一版release。
-
-2.使用trello规范TODO list。
-
-3.整理全方位的saf文档。
-
-4.提供容器化级别的监控(saf代码已经支持)。
-
-5.提供/完善全方位的测试用例。
-
-6.等等。
-
 
 # (*).如何发布
 
@@ -122,11 +110,3 @@ elasticsearch这类组件和特殊，因为es的不同版本的api差异极大�
   ```bash 
   mvn release:perform -DuseReleaseProfile=false
   ```
-  
-## 微信公众号：千里行走
-
-## 头条技术号：实战架构
-
-## 实战交流群
-
-![image](https://github.com/hepyu/saf/blob/master/images/k8s.png)

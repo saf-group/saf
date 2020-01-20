@@ -7,6 +7,9 @@ import com.future.saf.monitor.basic.MetricProfilerAspect;
 import com.future.saf.monitor.config.MonitorConfig;
 import com.future.saf.monitor.prometheus.metric.profile.PrometheusMetricProfilerProcessor;
 
+import io.prometheus.client.Gauge;
+import io.prometheus.client.Histogram.Timer;
+
 public class PrometheusAutoConfiguration {
 
 	@Bean
@@ -20,7 +23,7 @@ public class PrometheusAutoConfiguration {
 	}
 
 	@Bean(name = "customMetricProfileProcessor")
-	public AbstractMetricProfilerProcessor customMetricProfileProcessor() {
+	public AbstractMetricProfilerProcessor<Timer, Gauge, Gauge> customMetricProfileProcessor() {
 		PrometheusMetricProfilerProcessor processor = new PrometheusMetricProfilerProcessor("custom", "custom", "custom",
 				new String[] { "class", "method" });
 		return processor;

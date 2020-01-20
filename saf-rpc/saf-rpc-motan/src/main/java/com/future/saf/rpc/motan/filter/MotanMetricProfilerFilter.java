@@ -4,7 +4,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 
-import com.future.saf.monitor.basic.AbstractTimer;
 import com.future.saf.monitor.config.MonitorConfig;
 import com.future.saf.monitor.prometheus.metric.profile.PrometheusMetricProfilerProcessor;
 import com.future.saf.rpc.motan.util.MotanUtil;

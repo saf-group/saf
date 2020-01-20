@@ -16,6 +16,7 @@
 	<modules>
 		<module>saf-configcenter-apollo</module>
 		<module>saf-configcenter-basic</module>
+		<module>saf-configcenter-nacos</module>
 	</modules>
 
 </project>

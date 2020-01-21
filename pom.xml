@@ -486,6 +486,7 @@
 			<!-- motan end -->
 
 			<!-- Apache Dubbo Begin -->
+                        <!--
 			<dependency>
 				<groupId>org.apache.dubbo</groupId>
 				<artifactId>dubbo-dependencies-bom</artifactId>
@@ -493,6 +494,7 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			-->
 			<dependency>
 				<groupId>org.apache.dubbo</groupId>
 				<artifactId>dubbo-registry-nacos</artifactId>

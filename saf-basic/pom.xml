@@ -5,7 +5,7 @@
 		<groupId>com.future.saf</groupId>
 		<artifactId>saf</artifactId>
 		<version>1.0.7-SNAPSHOT</version>
-		<relativePath>../</relativePath>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>

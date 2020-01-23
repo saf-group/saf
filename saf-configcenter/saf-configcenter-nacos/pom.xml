@@ -4,15 +4,29 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>saf</artifactId>
 		<groupId>com.future.saf</groupId>
+		<artifactId>saf-configcenter</artifactId>
 		<version>1.0.7-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>saf-configcenter-nacos</artifactId>
+	<packaging>jar</packaging>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-logging-basic</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-configcenter-basic</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>com.alibaba.nacos</groupId>
 			<artifactId>nacos-client</artifactId>

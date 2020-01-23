@@ -277,10 +277,21 @@
 				<artifactId>saf-rpc-motan</artifactId>
 				<version>1.0.7-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>com.future.saf</groupId>
+				<artifactId>saf-rpc-dubbo</artifactId>
+				<version>1.0.7-SNAPSHOT</version>
+			</dependency>
 
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-configcenter-basic</artifactId>
+				<version>1.0.7-SNAPSHOT</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.future.saf</groupId>
+				<artifactId>saf-configcenter-apollo</artifactId>
 				<version>1.0.7-SNAPSHOT</version>
 			</dependency>
 

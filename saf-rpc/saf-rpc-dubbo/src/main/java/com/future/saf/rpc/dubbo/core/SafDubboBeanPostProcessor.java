@@ -25,7 +25,6 @@ import org.springframework.util.Assert;
 import com.future.saf.core.CustomizedConfigurationPropertiesBinder;
 import com.future.saf.rpc.dubbo.SafDubboConstant;
 import com.future.saf.rpc.dubbo.util.SafDubboUtil;
-import com.weibo.api.motan.config.springsupport.RegistryConfigBean;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,7 +35,6 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 	protected CustomizedConfigurationPropertiesBinder binder;
 
 	private Environment environment;
-	@SuppressWarnings("unused")
 	private BeanFactory beanFactory;
 
 	public static final String PREFIX_APP_MOTAN = "motan";

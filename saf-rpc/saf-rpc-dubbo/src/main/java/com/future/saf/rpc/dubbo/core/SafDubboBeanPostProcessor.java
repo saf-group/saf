@@ -140,11 +140,19 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 			log.info("begin to bind config to serviceBean:" + beanName);
 			ServiceBean<?> serviceBean = (ServiceBean<?>) bean;
 
+			// bind registryconfig
 			String registryBeanName = beanNamePrefix + RegistryConfig.class.getSimpleName();
 			RegistryConfig registryConfigBean = beanFactory.getBean(registryBeanName, RegistryConfig.class);
 			Assert.notNull(registryConfigBean,
 					String.format("%s does not existed in spring context!", registryBeanName));
 			serviceBean.setRegistry(registryConfigBean);
+
+			// bind protocolconfig
+			String protocolBeanName = beanNamePrefix + ProtocolConfig.class.getSimpleName();
+			ProtocolConfig protocolConfigBean = beanFactory.getBean(protocolBeanName, ProtocolConfig.class);
+			Assert.notNull(protocolConfigBean,
+					String.format("%s does not existed in spring context!", protocolBeanName));
+			serviceBean.setProtocol(protocolConfigBean);
 
 			String nsPrefix = SafDubboConstant.PREFIX_DUBBO + "." + instance + ".protocol";
 
@@ -156,6 +164,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 			log.info("begin to bind config to referenceBean:" + beanName);
 			ReferenceBean<?> referenceBean = (ReferenceBean<?>) bean;
 
+			// bind registryconfig
 			String registryBeanName = beanNamePrefix + RegistryConfig.class.getSimpleName();
 			RegistryConfig registryConfigBean = beanFactory.getBean(registryBeanName, RegistryConfig.class);
 			Assert.notNull(registryConfigBean,

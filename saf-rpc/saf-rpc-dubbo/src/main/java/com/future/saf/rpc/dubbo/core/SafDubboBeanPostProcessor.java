@@ -144,7 +144,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 		}
 		// 注入Service apollo配置
 		else if (bean instanceof ServiceBean) {
-			String[] tarray = beanName.split(".");
+			String[] tarray = beanName.split("\\.");
 			beanNamePrefix = tarray[tarray.length - 1].toLowerCase();
 			log.info(String.format("begin to bind config to serviceBean: %s, beanNamePrefix: %s", beanName,
 					beanNamePrefix));
@@ -172,7 +172,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 		}
 		// 注入Reference apollo配置
 		else if (bean instanceof ReferenceBean) {
-			String[] tarray = beanName.split(".");
+			String[] tarray = beanName.split("\\.");
 			beanNamePrefix = tarray[tarray.length - 1].toLowerCase();
 			log.info(String.format("begin to bind config to referenceBean: %s, beanNamePrefix: %s", beanName,
 					beanNamePrefix));

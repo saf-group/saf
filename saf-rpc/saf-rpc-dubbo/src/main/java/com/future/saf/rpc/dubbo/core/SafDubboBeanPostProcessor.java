@@ -149,7 +149,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 
 			// bind registryconfig
 			String registryBeanName = beanNamePrefix + RegistryConfig.class.getSimpleName();
-			RegistryConfig registryConfigBean = beanFactory.getBean(registryBeanName, RegistryConfig.class);
+			RegistryConfig registryConfigBean = beanFactory.getBean(RegistryConfig.class);
 			Assert.notNull(registryConfigBean,
 					String.format("%s does not existed in spring context!", registryBeanName));
 			serviceBean.setRegistry(registryConfigBean);
@@ -173,7 +173,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 
 			// bind registryconfig
 			String registryBeanName = beanNamePrefix + RegistryConfig.class.getSimpleName();
-			RegistryConfig registryConfigBean = beanFactory.getBean(registryBeanName, RegistryConfig.class);
+			RegistryConfig registryConfigBean = beanFactory.getBean(RegistryConfig.class);
 			Assert.notNull(registryConfigBean,
 					String.format("%s does not existed in spring context!", registryBeanName));
 			referenceBean.setRegistry(registryConfigBean);

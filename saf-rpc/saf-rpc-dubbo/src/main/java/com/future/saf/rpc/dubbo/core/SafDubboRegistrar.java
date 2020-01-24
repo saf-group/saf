@@ -68,7 +68,8 @@ public class SafDubboRegistrar implements ImportBeanDefinitionRegistrar {
 		// DubboNamespaceHandler.java
 		instanceMap.put(beanNamePrefix + ApplicationConfig.class.getSimpleName(), instance);
 		instanceMap.put(beanNamePrefix + ModuleConfig.class.getSimpleName(), instance);
-		instanceMap.put(beanNamePrefix + RegistryConfig.class.getSimpleName(), instance);
+		// instanceMap.put(beanNamePrefix +
+		// RegistryConfig.class.getSimpleName(), instance);
 		instanceMap.put(beanNamePrefix + MonitorConfig.class.getSimpleName(), instance);
 		instanceMap.put(beanNamePrefix + ProviderConfig.class.getSimpleName(), instance);
 		instanceMap.put(beanNamePrefix + ConsumerConfig.class.getSimpleName(), instance);
@@ -78,7 +79,8 @@ public class SafDubboRegistrar implements ImportBeanDefinitionRegistrar {
 
 		beanNamePrefixMap.put(beanNamePrefix + ApplicationConfig.class.getSimpleName(), beanNamePrefix);
 		beanNamePrefixMap.put(beanNamePrefix + ModuleConfig.class.getSimpleName(), beanNamePrefix);
-		beanNamePrefixMap.put(beanNamePrefix + RegistryConfig.class.getSimpleName(), beanNamePrefix);
+		// beanNamePrefixMap.put(beanNamePrefix +
+		// RegistryConfig.class.getSimpleName(), beanNamePrefix);
 		beanNamePrefixMap.put(beanNamePrefix + MonitorConfig.class.getSimpleName(), beanNamePrefix);
 		beanNamePrefixMap.put(beanNamePrefix + ProviderConfig.class.getSimpleName(), beanNamePrefix);
 		beanNamePrefixMap.put(beanNamePrefix + ConsumerConfig.class.getSimpleName(), beanNamePrefix);
@@ -88,7 +90,8 @@ public class SafDubboRegistrar implements ImportBeanDefinitionRegistrar {
 
 		projectMap.put(beanNamePrefix + ApplicationConfig.class.getSimpleName(), project);
 		projectMap.put(beanNamePrefix + ModuleConfig.class.getSimpleName(), project);
-		projectMap.put(beanNamePrefix + RegistryConfig.class.getSimpleName(), project);
+		// projectMap.put(beanNamePrefix + RegistryConfig.class.getSimpleName(),
+		// project);
 		projectMap.put(beanNamePrefix + MonitorConfig.class.getSimpleName(), project);
 		projectMap.put(beanNamePrefix + ProviderConfig.class.getSimpleName(), project);
 		projectMap.put(beanNamePrefix + ConsumerConfig.class.getSimpleName(), project);

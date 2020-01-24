@@ -144,12 +144,16 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 		}
 		// 注入Service apollo配置
 		else if (bean instanceof ServiceBean) {
-			log.info("begin to bind config to serviceBean:" + beanName);
+			String[] tarray = beanName.split(".");
+			beanNamePrefix = tarray[tarray.length - 1].toLowerCase();
+			log.info(String.format("begin to bind config to serviceBean: %s, beanNamePrefix: %s", beanName,
+					beanNamePrefix));
+
 			ServiceBean<?> serviceBean = (ServiceBean<?>) bean;
 
 			// bind registryconfig
 			String registryBeanName = beanNamePrefix + RegistryConfig.class.getSimpleName();
-			RegistryConfig registryConfigBean = beanFactory.getBean(RegistryConfig.class);
+			RegistryConfig registryConfigBean = beanFactory.getBean(registryBeanName, RegistryConfig.class);
 			Assert.notNull(registryConfigBean,
 					String.format("%s does not existed in spring context!", registryBeanName));
 			serviceBean.setRegistry(registryConfigBean);
@@ -168,12 +172,16 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 		}
 		// 注入Reference apollo配置
 		else if (bean instanceof ReferenceBean) {
-			log.info("begin to bind config to referenceBean:" + beanName);
+			String[] tarray = beanName.split(".");
+			beanNamePrefix = tarray[tarray.length - 1].toLowerCase();
+			log.info(String.format("begin to bind config to referenceBean: %s, beanNamePrefix: %s", beanName,
+					beanNamePrefix));
+
 			ReferenceBean<?> referenceBean = (ReferenceBean<?>) bean;
 
 			// bind registryconfig
 			String registryBeanName = beanNamePrefix + RegistryConfig.class.getSimpleName();
-			RegistryConfig registryConfigBean = beanFactory.getBean(RegistryConfig.class);
+			RegistryConfig registryConfigBean = beanFactory.getBean(registryBeanName, RegistryConfig.class);
 			Assert.notNull(registryConfigBean,
 					String.format("%s does not existed in spring context!", registryBeanName));
 			referenceBean.setRegistry(registryConfigBean);

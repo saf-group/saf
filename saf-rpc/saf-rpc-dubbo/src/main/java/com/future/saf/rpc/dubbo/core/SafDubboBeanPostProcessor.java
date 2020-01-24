@@ -158,6 +158,12 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 					String.format("%s does not existed in spring context!", applicationBeanName));
 			serviceBean.setApplication(applicationConfigBean);
 
+			// bind moduleconfig
+			String moduleBeanName = beanNamePrefix + RegistryConfig.class.getSimpleName();
+			ModuleConfig moduleConfigBean = beanFactory.getBean(moduleBeanName, ModuleConfig.class);
+			Assert.notNull(moduleConfigBean, String.format("%s does not existed in spring context!", moduleBeanName));
+			serviceBean.setModule(moduleConfigBean);
+
 			// bind registryconfig
 			String registryBeanName = beanNamePrefix + RegistryConfig.class.getSimpleName();
 			RegistryConfig registryConfigBean = beanFactory.getBean(registryBeanName, RegistryConfig.class);

@@ -48,7 +48,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 
 		// ApplicationConfig 每个project只有一个
 		if (bean instanceof ApplicationConfig) {
-
+			log.info("begin to bind config to applicationConfig:" + beanName);
 			ApplicationConfig applicationConfigBean = (ApplicationConfig) bean;
 			SafDubboUtil.initApplicationConfig(applicationConfigBean);
 
@@ -60,6 +60,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 		}
 		// ModuleConfig 每个project只有一个
 		else if (bean instanceof ModuleConfig) {
+			log.info("begin to bind config to moduleConfig:" + beanName);
 			ModuleConfig moduleConfigBean = (ModuleConfig) bean;
 			SafDubboUtil.initModuleConfig(moduleConfigBean);
 
@@ -70,6 +71,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 		}
 		// RegistryConfig jvm只有一个，不支持多注册中心(天坑)
 		else if (bean instanceof RegistryConfig) {
+			log.info("begin to bind config to registryConfig:" + beanName);
 			RegistryConfig registryConfigBean = (RegistryConfig) bean;
 			SafDubboUtil.initRegistryConfig(registryConfigBean);
 
@@ -91,6 +93,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 		}
 		// MonitorConfig jvm只有一个
 		else if (bean instanceof MonitorConfig) {
+			log.info("begin to bind config to monitorConfig:" + beanName);
 			MonitorConfig monitorConfigBean = (MonitorConfig) bean;
 			SafDubboUtil.initMonitorConfig(monitorConfigBean);
 
@@ -101,6 +104,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 		}
 		// MetricsConfig jvm只有一个
 		else if (bean instanceof MetricsConfig) {
+			log.info("begin to bind config to metricsConfig:" + beanName);
 			MetricsConfig metricsConfigBean = (MetricsConfig) bean;
 			SafDubboUtil.initMetricsConfig(metricsConfigBean);
 
@@ -109,6 +113,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 			Bindable<?> target = Bindable.of(MetricsConfig.class).withExistingValue(metricsConfigBean);
 			binder.bind(nsPrefix, target);
 		} else if (bean instanceof ProviderConfig) {
+			log.info("begin to bind config to providerConfig:" + beanName);
 			ProviderConfig providerConfigBean = (ProviderConfig) bean;
 			SafDubboUtil.initProviderConfig(providerConfigBean);
 
@@ -117,6 +122,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 			Bindable<?> target = Bindable.of(ProviderConfig.class).withExistingValue(providerConfigBean);
 			binder.bind(nsPrefix, target);
 		} else if (bean instanceof ConsumerConfig) {
+			log.info("begin to bind config to consumerConfig:" + beanName);
 			ConsumerConfig consumerConfigBean = (ConsumerConfig) bean;
 			SafDubboUtil.initConsumerConfig(consumerConfigBean);
 
@@ -127,6 +133,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 		}
 		// 可以有多个，这样不同允许不同的remote service使用不同的port
 		else if (bean instanceof ProtocolConfig) {
+			log.info("begin to bind config to protocolConfig:" + beanName);
 			ProtocolConfig protocolConfigBean = (ProtocolConfig) bean;
 			SafDubboUtil.initProtocolConfig(protocolConfigBean);
 
@@ -154,7 +161,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 					String.format("%s does not existed in spring context!", protocolBeanName));
 			serviceBean.setProtocol(protocolConfigBean);
 
-			String nsPrefix = SafDubboConstant.PREFIX_DUBBO + "." + instance + ".protocol";
+			String nsPrefix = SafDubboConstant.PREFIX_DUBBO + "." + instance + ".service-bean";
 
 			Bindable<?> target = Bindable.of(ServiceBean.class).withExistingValue(serviceBean);
 			binder.bind(nsPrefix, target);
@@ -171,7 +178,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 					String.format("%s does not existed in spring context!", registryBeanName));
 			referenceBean.setRegistry(registryConfigBean);
 
-			String nsPrefix = SafDubboConstant.PREFIX_DUBBO + "." + instance + ".protocol";
+			String nsPrefix = SafDubboConstant.PREFIX_DUBBO + "." + instance + ".reference-bean";
 
 			Bindable<?> target = Bindable.of(ReferenceBean.class).withExistingValue(referenceBean);
 			binder.bind(nsPrefix, target);

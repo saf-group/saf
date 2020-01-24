@@ -20,11 +20,16 @@ import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
+import org.springframework.util.Assert;
 
 import com.future.saf.core.CustomizedConfigurationPropertiesBinder;
 import com.future.saf.rpc.dubbo.SafDubboConstant;
 import com.future.saf.rpc.dubbo.util.SafDubboUtil;
+import com.weibo.api.motan.config.springsupport.RegistryConfigBean;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, EnvironmentAware, BeanFactoryAware {
 
 	@Autowired
@@ -41,6 +46,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 
 		String project = SafDubboRegistrar.projectMap.get(beanName);
 		String instance = SafDubboRegistrar.instanceMap.get(beanName);
+		String beanNamePrefix = SafDubboRegistrar.beanNamePrefixMap.get(beanName);
 
 		// ApplicationConfig 每个project只有一个
 		if (bean instanceof ApplicationConfig) {
@@ -133,7 +139,14 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 		}
 		// 注入Service apollo配置
 		else if (bean instanceof ServiceBean) {
+			log.info("begin to bind config to serviceBean:" + beanName);
 			ServiceBean<?> serviceBean = (ServiceBean<?>) bean;
+
+			String registryBeanName = beanNamePrefix + RegistryConfig.class.getSimpleName();
+			RegistryConfig registryConfigBean = beanFactory.getBean(registryBeanName, RegistryConfig.class);
+			Assert.notNull(registryConfigBean,
+					String.format("%s does not existed in spring context!", registryBeanName));
+			serviceBean.setRegistry(registryConfigBean);
 
 			String nsPrefix = SafDubboConstant.PREFIX_DUBBO + "." + instance + ".protocol";
 
@@ -142,7 +155,14 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 		}
 		// 注入Reference apollo配置
 		else if (bean instanceof ReferenceBean) {
+			log.info("begin to bind config to referenceBean:" + beanName);
 			ReferenceBean<?> referenceBean = (ReferenceBean<?>) bean;
+
+			String registryBeanName = beanNamePrefix + RegistryConfig.class.getSimpleName();
+			RegistryConfig registryConfigBean = beanFactory.getBean(registryBeanName, RegistryConfig.class);
+			Assert.notNull(registryConfigBean,
+					String.format("%s does not existed in spring context!", registryBeanName));
+			referenceBean.setRegistry(registryConfigBean);
 
 			String nsPrefix = SafDubboConstant.PREFIX_DUBBO + "." + instance + ".protocol";
 

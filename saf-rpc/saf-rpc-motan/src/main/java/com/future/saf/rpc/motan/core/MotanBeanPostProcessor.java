@@ -25,8 +25,6 @@ public class MotanBeanPostProcessor implements BeanPostProcessor, Ordered, Envir
 	private Environment environment;
 	private BeanFactory beanFactory;
 
-	public static final String PREFIX_APP_MOTAN = "motan";
-
 	@Override
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 

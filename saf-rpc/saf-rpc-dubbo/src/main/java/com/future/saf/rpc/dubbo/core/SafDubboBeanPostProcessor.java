@@ -37,8 +37,6 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 	private Environment environment;
 	private BeanFactory beanFactory;
 
-	public static final String PREFIX_APP_MOTAN = "motan";
-
 	@Override
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 

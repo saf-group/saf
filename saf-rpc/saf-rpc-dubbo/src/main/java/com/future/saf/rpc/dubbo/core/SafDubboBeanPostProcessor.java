@@ -135,7 +135,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 			ProtocolConfig protocolConfigBean = (ProtocolConfig) bean;
 			SafDubboUtil.initProtocolConfig(protocolConfigBean);
 
-			String nsPrefix = SafDubboConstant.PREFIX_DUBBO + "." + project + ".protocol";
+			String nsPrefix = SafDubboConstant.PREFIX_DUBBO + "." + beanNamePrefix + ".protocol";
 
 			Bindable<?> target = Bindable.of(ProtocolConfig.class).withExistingValue(protocolConfigBean);
 			binder.bind(nsPrefix, target);

@@ -1,0 +1,2 @@
+safDubboProviderFilter=com.future.saf.rpc.dubbo.filter.SafDubboProviderFilter
+safDubboConsumerFilter=com.future.saf.rpc.dubbo.filter.SafDubboConsumerFilter

@@ -27,6 +27,9 @@ public class MonitorConfig {
 	@Value("${monitor.motan.enable:true}")
 	private boolean enableMonitorMotan = true;
 
+	@Value("${monitor.dubbo.enable:true}")
+	private boolean enableMonitorDubbo = true;
+
 	@Value("${monitor.mapper.enable:true}")
 	private boolean enableMonitorMapper = true;
 
@@ -35,11 +38,13 @@ public class MonitorConfig {
 
 	public static volatile boolean ENABLE_MONITOR_MAPPER = true;
 	public static volatile boolean ENABLE_MONITOR_MOTAN = true;
+	public static volatile boolean ENABLE_MONITOR_DUBBO = true;
 
 	@Scheduled(fixedRate = 60)
 	public void refresh() {
 		ENABLE_MONITOR_MAPPER = enableMonitorMapper;
 		ENABLE_MONITOR_MOTAN = enableMonitorMotan;
+		ENABLE_MONITOR_DUBBO = enableMonitorDubbo;
 	}
 
 }

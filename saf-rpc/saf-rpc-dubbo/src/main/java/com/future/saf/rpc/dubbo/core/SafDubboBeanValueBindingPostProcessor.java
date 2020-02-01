@@ -9,7 +9,6 @@ import org.apache.dubbo.config.MonitorConfig;
 import org.apache.dubbo.config.ProtocolConfig;
 import org.apache.dubbo.config.ProviderConfig;
 import org.apache.dubbo.config.RegistryConfig;
-import org.apache.dubbo.config.spring.ReferenceBean;
 import org.apache.dubbo.config.spring.ServiceBean;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
@@ -29,7 +28,8 @@ import com.future.saf.rpc.dubbo.util.SafDubboUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, EnvironmentAware, BeanFactoryAware {
+public class SafDubboBeanValueBindingPostProcessor
+		implements BeanPostProcessor, Ordered, EnvironmentAware, BeanFactoryAware {
 
 	@Autowired
 	protected CustomizedConfigurationPropertiesBinder binder;
@@ -40,7 +40,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 	@Override
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 
-		String project = SafDubboRegistrar.projectMap.get(beanName);
+		String project = SafDubboRegistrar.project;
 		String instance = SafDubboRegistrar.instanceMap.get(beanName);
 		String beanNamePrefix = SafDubboRegistrar.beanNamePrefixMap.get(beanName);
 
@@ -119,6 +119,8 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 
 			Bindable<?> target = Bindable.of(ProviderConfig.class).withExistingValue(providerConfigBean);
 			binder.bind(nsPrefix, target);
+
+			providerConfigBean.setFilter("safDubboProviderFilter");
 		} else if (bean instanceof ConsumerConfig) {
 			log.info("begin to bind config to consumerConfig:" + beanName);
 			ConsumerConfig consumerConfigBean = (ConsumerConfig) bean;
@@ -128,6 +130,8 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 
 			Bindable<?> target = Bindable.of(ConsumerConfig.class).withExistingValue(consumerConfigBean);
 			binder.bind(nsPrefix, target);
+
+			consumerConfigBean.setFilter("safDubboConsumerFilter");
 		}
 		// 可以有多个，这样不同允许不同的remote service使用不同的port
 		else if (bean instanceof ProtocolConfig) {
@@ -135,7 +139,7 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 			ProtocolConfig protocolConfigBean = (ProtocolConfig) bean;
 			SafDubboUtil.initProtocolConfig(protocolConfigBean);
 
-			String nsPrefix = SafDubboConstant.PREFIX_DUBBO + "." + beanNamePrefix + ".protocol";
+			String nsPrefix = SafDubboConstant.PREFIX_DUBBO + "." + instance + ".protocol";
 
 			Bindable<?> target = Bindable.of(ProtocolConfig.class).withExistingValue(protocolConfigBean);
 			binder.bind(nsPrefix, target);
@@ -150,20 +154,20 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 			ServiceBean<?> serviceBean = (ServiceBean<?>) bean;
 
 			// bind applicationconfig
-			String applicationBeanName = beanNamePrefix + ApplicationConfig.class.getSimpleName();
+			String applicationBeanName = "default" + ApplicationConfig.class.getSimpleName();
 			ApplicationConfig applicationConfigBean = beanFactory.getBean(applicationBeanName, ApplicationConfig.class);
 			Assert.notNull(applicationConfigBean,
 					String.format("%s does not existed in spring context!", applicationBeanName));
 			serviceBean.setApplication(applicationConfigBean);
 
 			// bind moduleconfig
-			String moduleBeanName = beanNamePrefix + ModuleConfig.class.getSimpleName();
+			String moduleBeanName = "default" + ModuleConfig.class.getSimpleName();
 			ModuleConfig moduleConfigBean = beanFactory.getBean(moduleBeanName, ModuleConfig.class);
 			Assert.notNull(moduleConfigBean, String.format("%s does not existed in spring context!", moduleBeanName));
 			serviceBean.setModule(moduleConfigBean);
 
 			// bind registryconfig
-			String registryBeanName = beanNamePrefix + RegistryConfig.class.getSimpleName();
+			String registryBeanName = "default" + RegistryConfig.class.getSimpleName();
 			RegistryConfig registryConfigBean = beanFactory.getBean(registryBeanName, RegistryConfig.class);
 			Assert.notNull(registryConfigBean,
 					String.format("%s does not existed in spring context!", registryBeanName));
@@ -181,34 +185,45 @@ public class SafDubboBeanPostProcessor implements BeanPostProcessor, Ordered, En
 			Bindable<?> target = Bindable.of(ServiceBean.class).withExistingValue(serviceBean);
 			binder.bind(nsPrefix, target);
 		}
-		// 注入Reference apollo配置
-		else if (bean instanceof ReferenceBean) {
-			String[] tarray = beanName.split("\\.");
-			beanNamePrefix = tarray[tarray.length - 1].toLowerCase();
-			log.info(String.format("begin to bind config to referenceBean: %s, beanNamePrefix: %s", beanName,
-					beanNamePrefix));
-
-			ReferenceBean<?> referenceBean = (ReferenceBean<?>) bean;
-
-			// bind applicationconfig
-			String applicationBeanName = beanNamePrefix + ApplicationConfig.class.getSimpleName();
-			ApplicationConfig applicationConfigBean = beanFactory.getBean(applicationBeanName, ApplicationConfig.class);
-			Assert.notNull(applicationConfigBean,
-					String.format("%s does not existed in spring context!", applicationBeanName));
-			referenceBean.setApplication(applicationConfigBean);
-
-			// bind registryconfig
-			String registryBeanName = beanNamePrefix + RegistryConfig.class.getSimpleName();
-			RegistryConfig registryConfigBean = beanFactory.getBean(registryBeanName, RegistryConfig.class);
-			Assert.notNull(registryConfigBean,
-					String.format("%s does not existed in spring context!", registryBeanName));
-			referenceBean.setRegistry(registryConfigBean);
-
-			String nsPrefix = SafDubboConstant.PREFIX_DUBBO + "." + instance + ".reference-bean";
-
-			Bindable<?> target = Bindable.of(ReferenceBean.class).withExistingValue(referenceBean);
-			binder.bind(nsPrefix, target);
-		}
+		// // 注入Reference apollo配置
+		// else if (bean instanceof ReferenceBean) {
+		// String[] tarray = beanName.split("\\.");
+		// beanNamePrefix = tarray[tarray.length - 1].toLowerCase();
+		// log.info(String.format("begin to bind config to referenceBean: %s,
+		// beanNamePrefix: %s", beanName,
+		// beanNamePrefix));
+		//
+		// ReferenceBean<?> referenceBean = (ReferenceBean<?>) bean;
+		//
+		// // bind applicationconfig
+		// String applicationBeanName = beanNamePrefix +
+		// ApplicationConfig.class.getSimpleName();
+		// ApplicationConfig applicationConfigBean =
+		// beanFactory.getBean(applicationBeanName, ApplicationConfig.class);
+		// Assert.notNull(applicationConfigBean,
+		// String.format("%s does not existed in spring context!",
+		// applicationBeanName));
+		// referenceBean.setApplication(applicationConfigBean);
+		//
+		// // bind registryconfig
+		// String registryBeanName = beanNamePrefix +
+		// RegistryConfig.class.getSimpleName();
+		// RegistryConfig registryConfigBean =
+		// beanFactory.getBean(registryBeanName, RegistryConfig.class);
+		// Assert.notNull(registryConfigBean,
+		// String.format("%s does not existed in spring context!",
+		// registryBeanName));
+		// referenceBean.setRegistry(registryConfigBean);
+		//
+		// String nsPrefix = SafDubboConstant.PREFIX_DUBBO + "." + instance +
+		// ".reference-bean";
+		//
+		// Bindable<?> target =
+		// Bindable.of(ReferenceBean.class).withExistingValue(referenceBean);
+		// binder.bind(nsPrefix, target);
+		//
+		// referenceBean.setFilter("safDubboConsumerFilter");
+		// }
 
 		return bean;
 	}

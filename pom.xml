@@ -25,7 +25,6 @@
 		<module>saf-mq</module>
 		<module>saf-cache</module>
 		<module>saf-db</module>
-		<module>saf-http</module>
 		<module>saf-rpc</module>
 		<module>saf-http</module>
 		<module>saf-web</module>

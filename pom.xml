@@ -25,7 +25,9 @@
 		<module>saf-mq</module>
 		<module>saf-cache</module>
 		<module>saf-db</module>
+		<module>saf-http</module>
 		<module>saf-rpc</module>
+		<module>saf-http</module>
 		<module>saf-web</module>
 
 		<module>saf-monitor</module>
@@ -280,6 +282,11 @@
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-rpc-dubbo</artifactId>
+				<version>1.0.7-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.future.saf</groupId>
+				<artifactId>saf-http-apache-httpcomponents</artifactId>
 				<version>1.0.7-SNAPSHOT</version>
 			</dependency>
 

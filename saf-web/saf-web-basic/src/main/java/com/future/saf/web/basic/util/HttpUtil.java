@@ -4,6 +4,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class HttpUtil {
@@ -48,14 +51,41 @@ public class HttpUtil {
 			return uri;
 		final String[] split = StringUtils.split(uri, '/');
 		StringBuilder result = new StringBuilder("/");
+
 		for (String s : split) {
 			result.append(checkSegment(s) ? "xxx" : s).append("/");
 		}
 		return result.toString();
 	}
 
+	private final static Set<Character> ignoreSet = new HashSet<Character>();
+
+	static {
+		ignoreSet.add('.');
+		ignoreSet.add('-');
+	}
+
 	private static boolean checkSegment(String s) {
-		return NumberUtils.isDigits(s) || !StringUtils.isAlphanumeric(s);
+		return NumberUtils.isDigits(s) || !isAlphanumeric(s);
+	}
+
+	private static boolean isAlphanumeric(final CharSequence cs) {
+		if (cs == null || cs.length() == 0) {
+			return false;
+		}
+
+		final int sz = cs.length();
+		for (int i = 0; i < sz; i++) {
+			char c = cs.charAt(i);
+			if (!Character.isLetterOrDigit(c)) {
+				if (ignoreSet.contains(c)) {
+					continue;
+				} else {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	public static String getUrlEndpoint(String uri) {

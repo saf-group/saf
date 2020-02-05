@@ -18,6 +18,8 @@ public class HttpBioClientRegistrar implements ImportBeanDefinitionRegistrar {
 
 	static Map<String, String> beanNamePrefixMap = new ConcurrentHashMap<String, String>();
 
+	static Map<String, String> projectMap = new ConcurrentHashMap<String, String>();
+
 	@Override
 	public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 		boolean processed = false;
@@ -47,9 +49,11 @@ public class HttpBioClientRegistrar implements ImportBeanDefinitionRegistrar {
 	private void dealOne(BeanDefinitionRegistry registry, AnnotationAttributes oneAttributes) {
 		String beanNamePrefix = oneAttributes.getString("beanNamePrefix");
 		String instance = oneAttributes.getString("instance");
+		String project = oneAttributes.getString("project");
 
-		instanceMap.put(beanNamePrefix + HttpBioClient.class.getSimpleName(), instance);
 		beanNamePrefixMap.put(beanNamePrefix + HttpBioClient.class.getSimpleName(), beanNamePrefix);
+		instanceMap.put(beanNamePrefix + HttpBioClient.class.getSimpleName(), instance);
+		projectMap.put(beanNamePrefix + HttpBioClient.class.getSimpleName(), project);
 
 		Assert.isTrue(StringUtils.isNotEmpty(beanNamePrefix), "beanNamePrefix must be specified!");
 

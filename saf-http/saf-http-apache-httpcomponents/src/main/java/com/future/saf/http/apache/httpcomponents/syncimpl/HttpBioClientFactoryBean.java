@@ -11,7 +11,7 @@ import com.future.saf.core.CustomizedConfigurationPropertiesBinder;
 
 public class HttpBioClientFactoryBean implements FactoryBean<HttpBioClient>, EnvironmentAware, BeanNameAware {
 
-	public static final String PREFIX_APP_JEDIS = "app.chttpbioclient";
+	public static final String PREFIX = "http-bio-client";
 
 	@SuppressWarnings("unused")
 	private Environment environment;
@@ -24,10 +24,11 @@ public class HttpBioClientFactoryBean implements FactoryBean<HttpBioClient>, Env
 	public HttpBioClient getObject() {
 
 		String instance = HttpBioClientRegistrar.instanceMap.get(beanName);
+		String project = HttpBioClientRegistrar.projectMap.get(beanName);
 
 		HttpBioClientProps props = new HttpBioClientProps();
 		Bindable<?> target = Bindable.of(HttpBioClientProps.class).withExistingValue(props);
-		binder.bind(getPreFix() + "." + instance + ".props", target);
+		binder.bind(project + "." + getPreFix() + "." + instance + ".props", target);
 
 		HttpBioClient cHttpBioClient = new HttpBioClient(instance.replace("-", "_"), props);
 
@@ -35,7 +36,7 @@ public class HttpBioClientFactoryBean implements FactoryBean<HttpBioClient>, Env
 	}
 
 	private String getPreFix() {
-		return PREFIX_APP_JEDIS;
+		return PREFIX;
 	}
 
 	@Override

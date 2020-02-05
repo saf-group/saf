@@ -92,7 +92,7 @@ public class HttpBioClient implements DisposableBean {
 		this.props = cHttpBioClientProps;
 
 		HTTP_CONNECTION_STAT = Gauge.build().name("http_bio_client_outgoing_connection" + "_" + instance)
-				.help("app_http_bio_outgoing_conn status").labelNames("route", "state").register();
+				.help("http_bio_client_outgoing_connection status").labelNames("route", "state").register();
 
 		HTTP_CONNECTION_REQUEST_STAT = new PrometheusMetricProfilerProcessor(
 				"http_bio_client_outgoing_request" + "_" + instance, "http_bio_client_outgoing_request",

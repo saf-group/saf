@@ -13,4 +13,6 @@ public @interface EnableHttpBioClient {
 	String beanNamePrefix() default "default";
 
 	String instance();
+
+	String project();
 }

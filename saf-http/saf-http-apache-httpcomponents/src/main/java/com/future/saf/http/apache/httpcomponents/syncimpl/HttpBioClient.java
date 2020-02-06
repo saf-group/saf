@@ -62,18 +62,31 @@ public class HttpBioClient implements DisposableBean {
 
 	// (1).度量与统计http连接
 	// 度量与统计一个http connection pool中不同url对连接的占用情况
-	private final Gauge HTTP_CONNECTION_STAT;
+	private static final Gauge HTTP_CONNECTION_STAT = Gauge.build().name("http_bio_client_outgoing_connection")
+			.help("http_bio_client_outgoing_connection status").labelNames("httppool", "host", "state").register();
 	// 度量与统计http连接的request
-	private final PrometheusMetricProfilerProcessor HTTP_CONNECTION_REQUEST_STAT;
+	private static final PrometheusMetricProfilerProcessor HTTP_CONNECTION_REQUEST_STAT = new PrometheusMetricProfilerProcessor(
+			"http_bio_client_outgoing_request", "http_bio_client_outgoing_request", "http_bio_client_outgoing_request",
+			new String[] { "httppool", "method", "host" });
 	// 当blockingqueue中的认为超过指定的阈值时，进行reject，度量和统计这个reject
-	private final PrometheusMetricProfilerProcessor HTTP_CONNECTION_REQUEST_REJECT_STAT; // 度量与统计http连接的response
-	private final PrometheusMetricProfilerProcessor HTTP_CONNECTION_RESPONSE_STAT;
+	private static final PrometheusMetricProfilerProcessor HTTP_CONNECTION_REQUEST_REJECT_STAT = new PrometheusMetricProfilerProcessor(
+			"http_bio_client_outgoing_request_reject", "http_bio_client_outgoing_request_reject",
+			"http_bio_client_outgoing_request_reject", new String[] { "httppool", "method", "host" });
+	// 度量与统计http连接的response
+	private static final PrometheusMetricProfilerProcessor HTTP_CONNECTION_RESPONSE_STAT = new PrometheusMetricProfilerProcessor(
+			"http_bio_client_outgoing_response", "http_bio_client_outgoing_response",
+			"http_bio_client_outgoing_response", new String[] { "httppool", "method", "host" });
 
 	// (2).度量与统计blockingqueue
 	// 实时度量queue中元素个数
-	private Gauge BLOCKING_QUEUE_USED_CAPACITY_STAT;
+	private static final Gauge BLOCKING_QUEUE_USED_CAPACITY_STAT = Gauge.build()
+			.name("http_bio_client_outgoing_blocking_queue_used_capacity")
+			.help("http_bio_client_outgoing_blocking_queue_used_capacity").labelNames("httppool").register();
 	// 实时度量queue中元素个数占队列总容量百分比
-	private Gauge BLOCKING_QUEUE_USED_CAPACITY_PERCENTAGE_STAT;
+	private static final Gauge BLOCKING_QUEUE_USED_CAPACITY_PERCENTAGE_STAT = Gauge.build()
+			.name("http_bio_client_outgoing_blocking_queue_used_capacity_percentage")
+			.help("http_bio_client_outgoing_blocking_queue_used_capacity_percentage").labelNames("httppool")
+			.register();;
 
 	// 定时统计度量http connection, 释放idle http connection
 	private static final ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1,
@@ -90,28 +103,6 @@ public class HttpBioClient implements DisposableBean {
 
 		this.instance = instance;
 		this.props = cHttpBioClientProps;
-
-		HTTP_CONNECTION_STAT = Gauge.build().name("http_bio_client_outgoing_connection")
-				.help("http_bio_client_outgoing_connection status").labelNames("httppool", "host", "state").register();
-
-		HTTP_CONNECTION_REQUEST_STAT = new PrometheusMetricProfilerProcessor("http_bio_client_outgoing_request",
-				"http_bio_client_outgoing_request", "http_bio_client_outgoing_request",
-				new String[] { "httppool", "method", "host" });
-
-		HTTP_CONNECTION_REQUEST_REJECT_STAT = new PrometheusMetricProfilerProcessor(
-				"http_bio_client_outgoing_request_reject", "http_bio_client_outgoing_request_reject",
-				"http_bio_client_outgoing_request_reject", new String[] { "httppool", "method", "host" });
-
-		HTTP_CONNECTION_RESPONSE_STAT = new PrometheusMetricProfilerProcessor("http_bio_client_outgoing_response",
-				"http_bio_client_outgoing_response", "http_bio_client_outgoing_response",
-				new String[] { "httppool", "method", "host" });
-
-		BLOCKING_QUEUE_USED_CAPACITY_STAT = Gauge.build().name("http_bio_client_outgoing_blocking_queue_used_capacity")
-				.help("http_bio_client_outgoing_blocking_queue_used_capacity").labelNames("httppool").register();
-
-		BLOCKING_QUEUE_USED_CAPACITY_PERCENTAGE_STAT = Gauge.build()
-				.name("http_bio_client_outgoing_blocking_queue_used_capacity_percentage")
-				.help("http_bio_client_outgoing_blocking_queue_used_capacity").labelNames("httppool").register();
 
 		init();
 	}
@@ -299,7 +290,7 @@ public class HttpBioClient implements DisposableBean {
 						EntityUtils.consumeQuietly(httpResponse.getEntity());
 					}
 				}
-				httpTimer.observeDuration(url, route);
+				httpTimer.observeDuration(instance, url, route);
 				HTTP_CONNECTION_RESPONSE_STAT.dec(instance, url, route);
 			}
 			return response;
@@ -354,7 +345,7 @@ public class HttpBioClient implements DisposableBean {
 			throw e;
 		} finally {
 			ACCESS_LOGGER.info("{}|{}|{}|return", PREFIX, reqId, System.currentTimeMillis() - begin);
-			requestTimer.observeDuration(url, route);
+			requestTimer.observeDuration(instance, url, route);
 			HTTP_CONNECTION_REQUEST_STAT.dec(instance, url, route);
 		}
 		return httpResponse;

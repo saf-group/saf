@@ -200,8 +200,8 @@ public class HttpBioClient implements DisposableBean {
 			}
 
 			BLOCKING_QUEUE_USED_CAPACITY_STAT.labels(instance).set(workQueue.size());
-			double remainingCapacityPercentage = ((double) workQueue.remainingCapacity()) / ((double) (queueCapacity));
-			BLOCKING_QUEUE_USED_CAPACITY_PERCENTAGE_STAT.labels(instance).set(remainingCapacityPercentage);
+			double usedCapacityPercentage = ((double) workQueue.size()) / ((double) queueCapacity);
+			BLOCKING_QUEUE_USED_CAPACITY_PERCENTAGE_STAT.labels(instance).set(usedCapacityPercentage);
 
 			// 2.打印HTTP_EXECUTOR状态值
 

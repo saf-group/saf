@@ -91,28 +91,27 @@ public class HttpBioClient implements DisposableBean {
 		this.instance = instance;
 		this.props = cHttpBioClientProps;
 
-		HTTP_CONNECTION_STAT = Gauge.build().name("http_bio_client_outgoing_connection" + "_" + instance)
-				.help("http_bio_client_outgoing_connection status").labelNames("route", "state").register();
+		HTTP_CONNECTION_STAT = Gauge.build().name("http_bio_client_outgoing_connection")
+				.help("http_bio_client_outgoing_connection status").labelNames("httppool", "host", "state").register();
 
-		HTTP_CONNECTION_REQUEST_STAT = new PrometheusMetricProfilerProcessor(
-				"http_bio_client_outgoing_request" + "_" + instance, "http_bio_client_outgoing_request",
-				"http_bio_client_outgoing_request", new String[] { "method", "host" });
+		HTTP_CONNECTION_REQUEST_STAT = new PrometheusMetricProfilerProcessor("http_bio_client_outgoing_request",
+				"http_bio_client_outgoing_request", "http_bio_client_outgoing_request",
+				new String[] { "httppool", "method", "host" });
 
 		HTTP_CONNECTION_REQUEST_REJECT_STAT = new PrometheusMetricProfilerProcessor(
-				"http_bio_client_outgoing_request_reject" + "_" + instance, "http_bio_client_outgoing_request_reject",
-				"http_bio_client_outgoing_request_reject", new String[] { "method", "host" });
+				"http_bio_client_outgoing_request_reject", "http_bio_client_outgoing_request_reject",
+				"http_bio_client_outgoing_request_reject", new String[] { "httppool", "method", "host" });
 
-		HTTP_CONNECTION_RESPONSE_STAT = new PrometheusMetricProfilerProcessor(
-				"http_bio_client_outgoing_response" + "_" + instance, "http_bio_client_outgoing_response",
-				"http_bio_client_outgoing_response", new String[] { "method", "host" });
+		HTTP_CONNECTION_RESPONSE_STAT = new PrometheusMetricProfilerProcessor("http_bio_client_outgoing_response",
+				"http_bio_client_outgoing_response", "http_bio_client_outgoing_response",
+				new String[] { "httppool", "method", "host" });
 
-		BLOCKING_QUEUE_USED_CAPACITY_STAT = Gauge.build()
-				.name("http_bio_client_outgoing_blocking_queue_used_capacity" + "_" + instance)
-				.help("http_bio_client_outgoing_blocking_queue_used_capacity").labelNames("instance").register();
+		BLOCKING_QUEUE_USED_CAPACITY_STAT = Gauge.build().name("http_bio_client_outgoing_blocking_queue_used_capacity")
+				.help("http_bio_client_outgoing_blocking_queue_used_capacity").labelNames("httppool").register();
 
 		BLOCKING_QUEUE_USED_CAPACITY_PERCENTAGE_STAT = Gauge.build()
-				.name("http_bio_client_outgoing_blocking_queue_used_capacity_percentage" + "_" + instance)
-				.help("http_bio_client_outgoing_blocking_queue_used_capacity").labelNames("instance").register();
+				.name("http_bio_client_outgoing_blocking_queue_used_capacity_percentage")
+				.help("http_bio_client_outgoing_blocking_queue_used_capacity").labelNames("httppool").register();
 
 		init();
 	}
@@ -203,10 +202,10 @@ public class HttpBioClient implements DisposableBean {
 			for (HttpRoute route : cm.getRoutes()) {
 				PoolStats stats = cm.getStats(route);
 				String hostName = route.getTargetHost().getHostName();
-				HTTP_CONNECTION_STAT.labels(hostName, "Available").set(stats.getAvailable());
-				HTTP_CONNECTION_STAT.labels(hostName, "Leased").set(stats.getLeased());
-				HTTP_CONNECTION_STAT.labels(hostName, "Max").set(stats.getMax());
-				HTTP_CONNECTION_STAT.labels(hostName, "Pending").set(stats.getPending());
+				HTTP_CONNECTION_STAT.labels(instance, hostName, "Available").set(stats.getAvailable());
+				HTTP_CONNECTION_STAT.labels(instance, hostName, "Leased").set(stats.getLeased());
+				HTTP_CONNECTION_STAT.labels(instance, hostName, "Max").set(stats.getMax());
+				HTTP_CONNECTION_STAT.labels(instance, hostName, "Pending").set(stats.getPending());
 			}
 
 			BLOCKING_QUEUE_USED_CAPACITY_STAT.labels(instance).set(workQueue.size());
@@ -278,8 +277,9 @@ public class HttpBioClient implements DisposableBean {
 
 		@Override
 		public V call() throws IOException {
-			HTTP_CONNECTION_RESPONSE_STAT.inc(url, route);
-			AbstractTimer<Timer, Gauge, Gauge> httpTimer = HTTP_CONNECTION_RESPONSE_STAT.startTimer(url, route);
+			HTTP_CONNECTION_RESPONSE_STAT.inc(instance, url, route);
+			AbstractTimer<Timer, Gauge, Gauge> httpTimer = HTTP_CONNECTION_RESPONSE_STAT.startTimer(instance, url,
+					route);
 			// LatencyStat.Timer httpTimer = HTTP_STAT.startTimer(url, route);
 			ACCESS_LOGGER.info("{}|{}|{}|before", PREFIX, reqId, System.currentTimeMillis() - begin);
 			CloseableHttpResponse httpResponse = null;
@@ -293,14 +293,14 @@ public class HttpBioClient implements DisposableBean {
 			} finally {
 				if (httpResponse == null) {
 					ACCESS_LOGGER.info("{}|{}|{}|abort", PREFIX, reqId, System.currentTimeMillis() - begin);
-					HTTP_CONNECTION_RESPONSE_STAT.error(url, route);
+					HTTP_CONNECTION_RESPONSE_STAT.error(instance, url, route);
 				} else {
 					if (!(response instanceof HttpResponse)) {
 						EntityUtils.consumeQuietly(httpResponse.getEntity());
 					}
 				}
 				httpTimer.observeDuration(url, route);
-				HTTP_CONNECTION_RESPONSE_STAT.dec(url, route);
+				HTTP_CONNECTION_RESPONSE_STAT.dec(instance, url, route);
 			}
 			return response;
 		}
@@ -320,7 +320,7 @@ public class HttpBioClient implements DisposableBean {
 		String url = request.getMethod() + " " + HttpUtil.getPatternUrl(request.getURI().getPath());
 
 		if (workQueue.size() > props.getBlockingQueueMaxSize()) {
-			HTTP_CONNECTION_REQUEST_REJECT_STAT.inc(url, route);
+			HTTP_CONNECTION_REQUEST_REJECT_STAT.inc(instance, url, route);
 			throw new BlockingQueueThresholdSizeExceedException(
 					"current blocking queue's size exceed Threshold:" + props.getBlockingQueueMaxSize());
 		}
@@ -329,33 +329,33 @@ public class HttpBioClient implements DisposableBean {
 		long begin = System.currentTimeMillis();
 		ACCESS_LOGGER.info("{}|{}|{}|start", PREFIX, reqId, 0);
 		T httpResponse;
-		HTTP_CONNECTION_REQUEST_STAT.inc(url, route);
-		AbstractTimer<Timer, Gauge, Gauge> requestTimer = HTTP_CONNECTION_REQUEST_STAT.startTimer(url, route);
+		HTTP_CONNECTION_REQUEST_STAT.inc(instance, url, route);
+		AbstractTimer<Timer, Gauge, Gauge> requestTimer = HTTP_CONNECTION_REQUEST_STAT.startTimer(instance, url, route);
 		try {
 			Future<T> future = HTTP_EXECUTOR
 					.submit(new HttpExecutionTask<>(request, begin, reqId, url, route, handler));
 			httpResponse = future.get(timeout, timeUnit);
 		} catch (InterruptedException e) {
 			request.abort();
-			HTTP_CONNECTION_REQUEST_STAT.error(url, route);
+			HTTP_CONNECTION_REQUEST_STAT.error(instance, url, route);
 			ACCESS_LOGGER.error("{}|{}|{}|fail, with exception: {}", PREFIX, reqId, System.currentTimeMillis() - begin,
 					e.getMessage());
 			throw e;
 		} catch (ExecutionException e) {
 			request.abort();
-			HTTP_CONNECTION_REQUEST_STAT.error(url, route);
+			HTTP_CONNECTION_REQUEST_STAT.error(instance, url, route);
 			ACCESS_LOGGER.error("{}|{}|{}|fail, with exception {} - {}", PREFIX, reqId,
 					System.currentTimeMillis() - begin, ExecutionException.class.getSimpleName(),
 					e.getCause().getMessage());
 			throw e;
 		} catch (TimeoutException e) {
 			request.abort();
-			HTTP_CONNECTION_REQUEST_STAT.error(url, route);
+			HTTP_CONNECTION_REQUEST_STAT.error(instance, url, route);
 			throw e;
 		} finally {
 			ACCESS_LOGGER.info("{}|{}|{}|return", PREFIX, reqId, System.currentTimeMillis() - begin);
 			requestTimer.observeDuration(url, route);
-			HTTP_CONNECTION_REQUEST_STAT.dec(url, route);
+			HTTP_CONNECTION_REQUEST_STAT.dec(instance, url, route);
 		}
 		return httpResponse;
 	}

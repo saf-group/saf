@@ -28,10 +28,15 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.util.Assert;
 
+import com.alibaba.csp.sentinel.Entry;
+import com.alibaba.csp.sentinel.SphU;
+import com.alibaba.csp.sentinel.Tracer;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.future.saf.core.thread.CThreadFactory;
 import com.future.saf.core.util.LogUtil;
-import com.future.saf.http.apache.httpcomponents.exception.BlockingQueueThresholdSizeExceedException;
-import com.future.saf.http.apache.httpcomponents.util.HttpClientUtil;
+import com.future.saf.http.apache.httpcomponents.util.ApacheHttpcomponentsClientUtil;
+import com.future.saf.http.basic.HttpBioClient;
+import com.future.saf.http.basic.exception.BlockingQueueThresholdSizeExceedException;
 import com.future.saf.logging.basic.Loggers;
 import com.future.saf.monitor.basic.AbstractTimer;
 import com.future.saf.monitor.prometheus.metric.profile.PrometheusMetricProfilerProcessor;
@@ -40,12 +45,12 @@ import com.future.saf.web.basic.util.HttpUtil;
 import io.prometheus.client.Gauge;
 import io.prometheus.client.Histogram.Timer;
 
-public class HttpBioClient implements DisposableBean {
+public class ApacheHttpcomponentsBioClient implements DisposableBean, HttpBioClient {
 
 	private static final Logger ACCESS_LOGGER = Loggers.getAccessLogger();
 	private static final Logger PERFORMANCE_LOGGER = Loggers.getPerformanceLogger();
 
-	private static String PREFIX = HttpBioClient.class.getSimpleName();
+	private static String PREFIX = ApacheHttpcomponentsBioClient.class.getSimpleName();
 
 	// 当前HttpBioClient的标示，同时也是metric
 	// name的一部分，也是HttpBioClientBean的一部分，也是apollo配置key中的一部分
@@ -58,39 +63,43 @@ public class HttpBioClient implements DisposableBean {
 
 	private CloseableHttpClient internalClient;
 	private PoolingHttpClientConnectionManager cm;
-	private final HttpBioClientProps props;
+	private final ApacheHttpcomponentsBioClientProps props;
 
 	// (1).度量与统计http连接
 	// 度量与统计一个http connection pool中不同url对连接的占用情况
-	private static final Gauge HTTP_CONNECTION_STAT = Gauge.build().name("http_bio_client_outgoing_connection")
-			.help("http_bio_client_outgoing_connection status").labelNames("httppool", "host", "state").register();
+	private static final Gauge HTTP_CONNECTION_STAT = Gauge.build()
+			.name("apache_httpcomponents_bio_client_outgoing_connection")
+			.help("apache_httpcomponents_bio_client_outgoing_connection status").labelNames("httppool", "host", "state")
+			.register();
 	// 度量与统计http连接的request
 	private static final PrometheusMetricProfilerProcessor HTTP_CONNECTION_REQUEST_STAT = new PrometheusMetricProfilerProcessor(
-			"http_bio_client_outgoing_request", "http_bio_client_outgoing_request", "http_bio_client_outgoing_request",
-			new String[] { "httppool", "method", "host" });
+			"apache_httpcomponents_bio_client_outgoing_request", "apache_httpcomponents_bio_client_outgoing_request",
+			"apache_httpcomponents_bio_client_outgoing_request", new String[] { "httppool", "method", "host" });
 	// 当blockingqueue中的认为超过指定的阈值时，进行reject，度量和统计这个reject
 	private static final PrometheusMetricProfilerProcessor HTTP_CONNECTION_REQUEST_REJECT_STAT = new PrometheusMetricProfilerProcessor(
-			"http_bio_client_outgoing_request_reject", "http_bio_client_outgoing_request_reject",
-			"http_bio_client_outgoing_request_reject", new String[] { "httppool", "method", "host" });
+			"apache_httpcomponents_bio_client_outgoing_request_reject",
+			"apache_httpcomponents_bio_client_outgoing_request_reject",
+			"apache_httpcomponents_bio_client_outgoing_request_reject", new String[] { "httppool", "method", "host" });
 	// 度量与统计http连接的response
 	private static final PrometheusMetricProfilerProcessor HTTP_CONNECTION_RESPONSE_STAT = new PrometheusMetricProfilerProcessor(
-			"http_bio_client_outgoing_response", "http_bio_client_outgoing_response",
-			"http_bio_client_outgoing_response", new String[] { "httppool", "method", "host" });
+			"apache_httpcomponents_bio_client_outgoing_response", "apache_httpcomponents_bio_client_outgoing_response",
+			"apache_httpcomponents_bio_client_outgoing_response", new String[] { "httppool", "method", "host" });
 
 	// (2).度量与统计blockingqueue
 	// 实时度量queue中元素个数
 	private static final Gauge BLOCKING_QUEUE_USED_CAPACITY_STAT = Gauge.build()
-			.name("http_bio_client_outgoing_blocking_queue_used_capacity")
-			.help("http_bio_client_outgoing_blocking_queue_used_capacity").labelNames("httppool").register();
+			.name("apache_httpcomponents_bio_client_outgoing_blocking_queue_used_capacity")
+			.help("apache_httpcomponents_bio_client_outgoing_blocking_queue_used_capacity").labelNames("httppool")
+			.register();
 	// 实时度量queue中元素个数占队列总容量百分比
 	private static final Gauge BLOCKING_QUEUE_USED_CAPACITY_PERCENTAGE_STAT = Gauge.build()
-			.name("http_bio_client_outgoing_blocking_queue_used_capacity_percentage")
-			.help("http_bio_client_outgoing_blocking_queue_used_capacity_percentage").labelNames("httppool")
-			.register();;
+			.name("apache_httpcomponents_bio_client_outgoing_blocking_queue_used_capacity_percentage")
+			.help("apache_httpcomponents_bio_client_outgoing_blocking_queue_used_capacity_percentage")
+			.labelNames("httppool").register();;
 
 	// 定时统计度量http connection, 释放idle http connection
 	private static final ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1,
-			new CThreadFactory("chttpclient-bio-"));
+			new CThreadFactory("apache-httpcomponents-bio-client-"));
 
 	private static final ResponseHandler<HttpResponse> DEFAULT_RESPONSE_HANDLER = new ResponseHandler<HttpResponse>() {
 		@Override
@@ -99,7 +108,7 @@ public class HttpBioClient implements DisposableBean {
 		}
 	};
 
-	public HttpBioClient(String instance, HttpBioClientProps cHttpBioClientProps) {
+	public ApacheHttpcomponentsBioClient(String instance, ApacheHttpcomponentsBioClientProps cHttpBioClientProps) {
 
 		this.instance = instance;
 		this.props = cHttpBioClientProps;
@@ -298,16 +307,16 @@ public class HttpBioClient implements DisposableBean {
 	}
 
 	public HttpResponse execute(String reqId, HttpUriRequest request, int timeout, TimeUnit timeUnit)
-			throws InterruptedException, ExecutionException, TimeoutException,
+			throws InterruptedException, ExecutionException, TimeoutException, BlockException,
 			BlockingQueueThresholdSizeExceedException {
-		return this.execute(reqId, request, timeout, timeUnit, DEFAULT_RESPONSE_HANDLER);
+		return this.innerExecute(reqId, request, timeout, timeUnit, DEFAULT_RESPONSE_HANDLER);
 	}
 
-	private <T> T execute(String reqId, HttpUriRequest request, int timeout, TimeUnit timeUnit,
+	private <T> T innerExecute(String reqId, HttpUriRequest request, int timeout, TimeUnit timeUnit,
 			ResponseHandler<T> handler) throws InterruptedException, ExecutionException, TimeoutException,
-			BlockingQueueThresholdSizeExceedException {
+			BlockException, BlockingQueueThresholdSizeExceedException {
 
-		String route = HttpClientUtil.determineTarget(request);
+		String route = ApacheHttpcomponentsClientUtil.determineTarget(request);
 		String url = request.getMethod() + " " + HttpUtil.getPatternUrl(request.getURI().getPath());
 
 		if (workQueue.size() > props.getBlockingQueueMaxSize()) {
@@ -319,20 +328,28 @@ public class HttpBioClient implements DisposableBean {
 		Assert.isTrue(StringUtils.isNotEmpty(reqId), "must specify reqId!!!");
 		long begin = System.currentTimeMillis();
 		ACCESS_LOGGER.info("{}|{}|{}|start", PREFIX, reqId, 0);
+
+		Entry entry = null;
+		Entry methodEntry = null;
+
 		T httpResponse;
 		HTTP_CONNECTION_REQUEST_STAT.inc(instance, url, route);
 		AbstractTimer<Timer, Gauge, Gauge> requestTimer = HTTP_CONNECTION_REQUEST_STAT.startTimer(instance, url, route);
 		try {
+			entry = SphU.entry("Http::Bio::Out");
+			methodEntry = SphU.entry(PREFIX + ":" + route + ":" + url);
 			Future<T> future = HTTP_EXECUTOR
 					.submit(new HttpExecutionTask<>(request, begin, reqId, url, route, handler));
 			httpResponse = future.get(timeout, timeUnit);
 		} catch (InterruptedException e) {
+			Tracer.trace(e);
 			request.abort();
 			HTTP_CONNECTION_REQUEST_STAT.error(instance, url, route);
 			ACCESS_LOGGER.error("{}|{}|{}|fail, with exception: {}", PREFIX, reqId, System.currentTimeMillis() - begin,
 					e.getMessage());
 			throw e;
 		} catch (ExecutionException e) {
+			Tracer.trace(e);
 			request.abort();
 			HTTP_CONNECTION_REQUEST_STAT.error(instance, url, route);
 			ACCESS_LOGGER.error("{}|{}|{}|fail, with exception {} - {}", PREFIX, reqId,
@@ -340,10 +357,18 @@ public class HttpBioClient implements DisposableBean {
 					e.getCause().getMessage());
 			throw e;
 		} catch (TimeoutException e) {
+			Tracer.trace(e);
 			request.abort();
 			HTTP_CONNECTION_REQUEST_STAT.error(instance, url, route);
 			throw e;
 		} finally {
+			if (methodEntry != null) {
+				methodEntry.exit();
+			}
+			if (entry != null) {
+				entry.exit();
+			}
+
 			ACCESS_LOGGER.info("{}|{}|{}|return", PREFIX, reqId, System.currentTimeMillis() - begin);
 			requestTimer.observeDuration(instance, url, route);
 			HTTP_CONNECTION_REQUEST_STAT.dec(instance, url, route);

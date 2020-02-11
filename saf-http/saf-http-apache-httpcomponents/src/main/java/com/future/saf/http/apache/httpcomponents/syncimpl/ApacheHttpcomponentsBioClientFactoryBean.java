@@ -9,9 +9,10 @@ import org.springframework.core.env.Environment;
 
 import com.future.saf.core.CustomizedConfigurationPropertiesBinder;
 
-public class HttpBioClientFactoryBean implements FactoryBean<HttpBioClient>, EnvironmentAware, BeanNameAware {
+public class ApacheHttpcomponentsBioClientFactoryBean
+		implements FactoryBean<ApacheHttpcomponentsBioClient>, EnvironmentAware, BeanNameAware {
 
-	public static final String PREFIX = "http-bio-client";
+	public static final String PREFIX = "apache-httpcomponents.bio-client";
 
 	@SuppressWarnings("unused")
 	private Environment environment;
@@ -21,16 +22,17 @@ public class HttpBioClientFactoryBean implements FactoryBean<HttpBioClient>, Env
 	protected CustomizedConfigurationPropertiesBinder binder;
 
 	@Override
-	public HttpBioClient getObject() {
+	public ApacheHttpcomponentsBioClient getObject() {
 
-		String instance = HttpBioClientRegistrar.instanceMap.get(beanName);
-		String project = HttpBioClientRegistrar.projectMap.get(beanName);
+		String instance = ApacheHttpcomponentsBioClientRegistrar.instanceMap.get(beanName);
+		String project = ApacheHttpcomponentsBioClientRegistrar.projectMap.get(beanName);
 
-		HttpBioClientProps props = new HttpBioClientProps();
-		Bindable<?> target = Bindable.of(HttpBioClientProps.class).withExistingValue(props);
+		ApacheHttpcomponentsBioClientProps props = new ApacheHttpcomponentsBioClientProps();
+		Bindable<?> target = Bindable.of(ApacheHttpcomponentsBioClientProps.class).withExistingValue(props);
 		binder.bind(project + "." + getPreFix() + "." + instance + ".props", target);
 
-		HttpBioClient cHttpBioClient = new HttpBioClient(instance.replace("-", "_"), props);
+		ApacheHttpcomponentsBioClient cHttpBioClient = new ApacheHttpcomponentsBioClient(instance.replace("-", "_"),
+				props);
 
 		return cHttpBioClient;
 	}
@@ -41,7 +43,7 @@ public class HttpBioClientFactoryBean implements FactoryBean<HttpBioClient>, Env
 
 	@Override
 	public Class<?> getObjectType() {
-		return HttpBioClient.class;
+		return ApacheHttpcomponentsBioClient.class;
 	}
 
 	@Override

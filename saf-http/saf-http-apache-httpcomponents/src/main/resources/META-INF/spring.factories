@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.future.saf.http.apache.httpcomponents.HttpAutoConfiguration
+com.future.saf.http.apache.httpcomponents.ApacheHttpcomponentsAutoConfiguration

@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 
 import com.future.saf.core.util.BeanRegistrationUtil;
 
-public class HttpBioClientRegistrar implements ImportBeanDefinitionRegistrar {
+public class ApacheHttpcomponentsBioClientRegistrar implements ImportBeanDefinitionRegistrar {
 
 	static Map<String, String> instanceMap = new ConcurrentHashMap<String, String>();
 
@@ -25,7 +25,7 @@ public class HttpBioClientRegistrar implements ImportBeanDefinitionRegistrar {
 		boolean processed = false;
 		{
 			AnnotationAttributes attributes = AnnotationAttributes
-					.fromMap(importingClassMetadata.getAnnotationAttributes(EnableHttpBioClient.class.getName()));
+					.fromMap(importingClassMetadata.getAnnotationAttributes(EnableApacheHttpcomponentsBioClient.class.getName()));
 			if (attributes != null) {
 				dealOne(registry, attributes);
 				processed = true;
@@ -33,7 +33,7 @@ public class HttpBioClientRegistrar implements ImportBeanDefinitionRegistrar {
 		}
 		{
 			AnnotationAttributes attributes = AnnotationAttributes
-					.fromMap(importingClassMetadata.getAnnotationAttributes(EnableHttpBioClients.class.getName()));
+					.fromMap(importingClassMetadata.getAnnotationAttributes(EnableApacheHttpcomponentsBioClients.class.getName()));
 			if (attributes != null) {
 				AnnotationAttributes[] annotationArray = attributes.getAnnotationArray("value");
 				for (AnnotationAttributes oneAttributes : annotationArray) {
@@ -51,14 +51,14 @@ public class HttpBioClientRegistrar implements ImportBeanDefinitionRegistrar {
 		String instance = oneAttributes.getString("instance");
 		String project = oneAttributes.getString("project");
 
-		beanNamePrefixMap.put(beanNamePrefix + HttpBioClient.class.getSimpleName(), beanNamePrefix);
-		instanceMap.put(beanNamePrefix + HttpBioClient.class.getSimpleName(), instance);
-		projectMap.put(beanNamePrefix + HttpBioClient.class.getSimpleName(), project);
+		beanNamePrefixMap.put(beanNamePrefix + ApacheHttpcomponentsBioClient.class.getSimpleName(), beanNamePrefix);
+		instanceMap.put(beanNamePrefix + ApacheHttpcomponentsBioClient.class.getSimpleName(), instance);
+		projectMap.put(beanNamePrefix + ApacheHttpcomponentsBioClient.class.getSimpleName(), project);
 
 		Assert.isTrue(StringUtils.isNotEmpty(beanNamePrefix), "beanNamePrefix must be specified!");
 
 		BeanRegistrationUtil.registerBeanDefinitionIfBeanNameNotExists(registry,
-				beanNamePrefix + HttpBioClient.class.getSimpleName(), HttpBioClientFactoryBean.class);
+				beanNamePrefix + ApacheHttpcomponentsBioClient.class.getSimpleName(), ApacheHttpcomponentsBioClientFactoryBean.class);
 
 	}
 

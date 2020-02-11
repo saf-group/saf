@@ -1,4 +1,4 @@
-package com.future.saf.http.apache.httpcomponents.exception;
+package com.future.saf.http.basic.exception;
 
 public class BlockingQueueThresholdSizeExceedException extends Exception {
 

@@ -3,7 +3,7 @@ package com.future.saf.http.apache.httpcomponents.syncimpl;
 import lombok.Data;
 
 @Data
-public class HttpBioClientProps {
+public class ApacheHttpcomponentsBioClientProps {
 
 	// 连接池中每个路由（目标host）的连接数
 	private int defaultMaxPerRoute = 1000;

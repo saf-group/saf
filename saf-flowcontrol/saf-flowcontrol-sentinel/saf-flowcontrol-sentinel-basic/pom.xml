@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.future.saf</groupId>
+		<artifactId>saf-flowcontrol-sentinel</artifactId>
+		<version>1.0.7-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>saf-flowcontrol-sentinel-basic</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-logging-basic</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-monitor-prometheus</artifactId>
+		</dependency>
+
+		<!-- Sentinel -->
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>ahas-sentinel-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-web-servlet</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-annotation-aspectj</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-transport-simple-http</artifactId>
+		</dependency>
+	</dependencies>
+</project>

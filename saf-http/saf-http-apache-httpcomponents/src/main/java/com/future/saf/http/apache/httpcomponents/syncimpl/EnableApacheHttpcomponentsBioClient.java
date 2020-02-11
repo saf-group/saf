@@ -6,9 +6,9 @@ import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Repeatable(EnableHttpBioClients.class)
-@Import(HttpBioClientRegistrar.class)
-public @interface EnableHttpBioClient {
+@Repeatable(EnableApacheHttpcomponentsBioClients.class)
+@Import(ApacheHttpcomponentsBioClientRegistrar.class)
+public @interface EnableApacheHttpcomponentsBioClient {
 
 	String beanNamePrefix() default "default";
 

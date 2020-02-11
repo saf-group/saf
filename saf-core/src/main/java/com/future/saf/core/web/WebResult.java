@@ -8,7 +8,7 @@ public class WebResult<T> implements Serializable {
 
 	public static final int CODE_SUCCESS = 0;
 	public static final int CODE_FAILED = -1;
-	public static final int CODE_LIMITED = -2;
+	public static final int CODE_FLOWCONTROL = -2;
 
 	public static final String MSG_NONE = "";
 
@@ -20,7 +20,7 @@ public class WebResult<T> implements Serializable {
 	}
 
 	public static WebResult<String> block() {
-		return new WebResult<>(CODE_LIMITED, "request blocked by sentinel!", "");
+		return new WebResult<>(CODE_FLOWCONTROL, "request blocked by flowcontrol!", "");
 	}
 
 	public static <T> WebResult<T> build(int code, String msg, T data) {

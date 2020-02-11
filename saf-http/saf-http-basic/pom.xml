@@ -9,7 +9,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>saf-http-apache-httpcomponents</artifactId>
+	<artifactId>saf-http-basic</artifactId>
 
 	<dependencies>
 		<dependency>
@@ -23,29 +23,6 @@
 		<dependency>
 			<groupId>com.future.saf</groupId>
 			<artifactId>saf-monitor-prometheus</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.future.saf</groupId>
-			<artifactId>saf-http-basic</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpcore-nio</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpasyncclient</artifactId>
-		</dependency>
-
-		<!-- sentinel -->
-		<dependency>
-			<groupId>com.future.saf</groupId>
-			<artifactId>saf-flowcontrol-sentinel-ext-apollo</artifactId>
 		</dependency>
 	</dependencies>
 

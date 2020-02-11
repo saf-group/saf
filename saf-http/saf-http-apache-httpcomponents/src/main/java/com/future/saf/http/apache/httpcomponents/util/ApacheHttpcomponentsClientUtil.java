@@ -7,7 +7,7 @@ import org.apache.http.util.Args;
 
 import java.net.URI;
 
-public class HttpClientUtil {
+public class ApacheHttpcomponentsClientUtil {
 
 	public static String determineTarget(final HttpUriRequest request) {
 

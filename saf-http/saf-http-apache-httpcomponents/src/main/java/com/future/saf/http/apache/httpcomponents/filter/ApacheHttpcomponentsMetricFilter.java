@@ -20,14 +20,16 @@ import com.google.common.collect.Sets;
 import io.prometheus.client.Gauge;
 import io.prometheus.client.Histogram.Timer;
 
-public class HttpMetricFilter implements Filter {
+public class ApacheHttpcomponentsMetricFilter implements Filter {
 
 	private static final PrometheusMetricProfilerProcessor PROFILER_STAT = new PrometheusMetricProfilerProcessor(
-			"http_bio_client_ingoing_request", "http_bio_client_ingoing_request", "http_bio_client_ingoing_request",
-			new String[] { "url", "method", "status" });
+			"apache_httpcomponents_bio_client_ingoing_request", "apache_httpcomponents_bio_client_ingoing_request",
+			"apache_httpcomponents_bio_client_ingoing_request", new String[] { "url", "method", "status" });
 
-	private static final Gauge FTL_STAT = Gauge.build().name("http_bio_client_ingoing_request_ftl_gauge")
-			.help("http_bio_client_ingoing_request_ftl_gauge").labelNames("url", "method", "status").register();
+	private static final Gauge FTL_STAT = Gauge.build()
+			.name("apache_httpcomponents_bio_client_ingoing_request_ftl_gauge")
+			.help("apache_httpcomponents_bio_client_ingoing_request_ftl_gauge").labelNames("url", "method", "status")
+			.register();
 
 	private static final Set<String> FTL_URL_SET = Sets.newConcurrentHashSet();
 

@@ -13,8 +13,11 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<!--<module>saf-http-basic</module> -->
+
+		<module>saf-http-basic</module>
+
 		<module>saf-http-apache-httpcomponents</module>
+
 	</modules>
 
 </project>

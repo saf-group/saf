@@ -9,9 +9,9 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import(HttpBioClientRegistrar.class)
-public @interface EnableHttpBioClients {
+@Import(ApacheHttpcomponentsBioClientRegistrar.class)
+public @interface EnableApacheHttpcomponentsBioClients {
 
-	EnableHttpBioClient[] value();
+	EnableApacheHttpcomponentsBioClient[] value();
 
 }

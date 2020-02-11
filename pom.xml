@@ -21,6 +21,7 @@
 		<module>saf-core</module>
 
 		<module>saf-configcenter</module>
+		<module>saf-flowcontrol</module>
 		<module>saf-search</module>
 		<module>saf-mq</module>
 		<module>saf-cache</module>
@@ -285,21 +286,35 @@
 			</dependency>
 			<dependency>
 				<groupId>com.future.saf</groupId>
-				<artifactId>saf-http-apache-httpcomponents</artifactId>
-				<version>1.0.7-SNAPSHOT</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.future.saf</groupId>
 				<artifactId>saf-configcenter-basic</artifactId>
 				<version>1.0.7-SNAPSHOT</version>
 			</dependency>
-
 			<dependency>
 				<groupId>com.future.saf</groupId>
 				<artifactId>saf-configcenter-apollo</artifactId>
 				<version>1.0.7-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>com.future.saf</groupId>
+				<artifactId>saf-http-basic</artifactId>
+				<version>1.0.7-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.future.saf</groupId>
+				<artifactId>saf-http-apache-httpcomponents</artifactId>
+				<version>1.0.7-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.future.saf</groupId>
+				<artifactId>saf-flowcontrol-sentinel-basic</artifactId>
+				<version>1.0.7-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.future.saf</groupId>
+				<artifactId>saf-flowcontrol-sentinel-ext-apollo</artifactId>
+				<version>1.0.7-SNAPSHOT</version>
+			</dependency>
+
 
 			<!-- (1).begin: all commons -->
 			<!-- version latest: Jul 23, 2019 -->
@@ -402,22 +417,27 @@
 			<dependency>
 				<groupId>com.alibaba.csp</groupId>
 				<artifactId>sentinel-web-servlet</artifactId>
-				<version>1.5.2</version>
+				<version>1.7.1</version>
 			</dependency>
 			<dependency>
 				<groupId>com.alibaba.csp</groupId>
 				<artifactId>sentinel-annotation-aspectj</artifactId>
-				<version>1.5.2</version>
+				<version>1.7.1</version>
 			</dependency>
 			<dependency>
 				<groupId>com.alibaba.csp</groupId>
 				<artifactId>sentinel-core</artifactId>
-				<version>1.5.2</version>
+				<version>1.7.1</version>
 			</dependency>
 			<dependency>
 				<groupId>com.alibaba.csp</groupId>
 				<artifactId>sentinel-transport-simple-http</artifactId>
-				<version>1.5.2</version>
+				<version>1.7.1</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-datasource-apollo</artifactId>
+				<version>1.7.1</version>
 			</dependency>
 
 			<!-- Json -->

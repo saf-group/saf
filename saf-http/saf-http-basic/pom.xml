@@ -3,8 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>saf</artifactId>
 		<groupId>com.future.saf</groupId>
+		<artifactId>saf-http</artifactId>
 		<version>1.0.7-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>

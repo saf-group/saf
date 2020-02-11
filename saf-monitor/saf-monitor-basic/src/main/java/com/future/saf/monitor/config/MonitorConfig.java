@@ -39,10 +39,18 @@ public class MonitorConfig {
 	@Value("${monitor.http.bio.client.flowcontrol.enable:true}")
 	private boolean enableHttpBioClientFlowControl = true;
 
+	@Value("${monitor.profile.http.enable:true}")
+	private boolean enableHttpProfiler;
+
+	@Value("${monitor.trace.http.enable:true}")
+	private boolean enableHttpTracingInterceptor;
+
 	public static volatile boolean ENABLE_MONITOR_MAPPER = true;
 	public static volatile boolean ENABLE_MONITOR_MOTAN = true;
 	public static volatile boolean ENABLE_MONITOR_DUBBO = true;
 	public static volatile boolean ENABLE_HTTP_BIO_CLIENT_FLOWCONTROL = true;
+	public static volatile boolean ENABLE_HTTP_PROFILE = true;
+	public static volatile boolean ENABLE_HTTP_TRACEING_INTERCEPTOR = true;
 
 	@Scheduled(fixedRate = 60)
 	public void refresh() {
@@ -50,6 +58,8 @@ public class MonitorConfig {
 		ENABLE_MONITOR_MOTAN = enableMonitorMotan;
 		ENABLE_MONITOR_DUBBO = enableMonitorDubbo;
 		ENABLE_HTTP_BIO_CLIENT_FLOWCONTROL = enableHttpBioClientFlowControl;
+		ENABLE_HTTP_PROFILE = enableHttpProfiler;
+		ENABLE_HTTP_TRACEING_INTERCEPTOR = enableHttpTracingInterceptor;
 	}
 
 }

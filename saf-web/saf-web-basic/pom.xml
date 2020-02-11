@@ -66,5 +66,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<!-- sentinel -->
+		<dependency>
+			<groupId>com.future.saf</groupId>
+			<artifactId>saf-flowcontrol-sentinel-ext-apollo</artifactId>
+		</dependency>
 	</dependencies>
 </project>

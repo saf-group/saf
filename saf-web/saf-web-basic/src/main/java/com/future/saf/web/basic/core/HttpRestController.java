@@ -1,4 +1,4 @@
-package com.future.saf.http.apache.httpcomponents.flowcontrol.sentinel;
+package com.future.saf.web.basic.core;
 
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.future.saf.core.web.WebResult;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @ControllerAdvice
-public class ApacheHttpcomponentsSentinelHttpRestController {
+public class HttpRestController {
 
 	@ExceptionHandler({ BlockException.class })
 	@ResponseBody

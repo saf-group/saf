@@ -40,6 +40,7 @@ import com.future.saf.http.basic.exception.BlockingQueueThresholdSizeExceedExcep
 import com.future.saf.logging.basic.Loggers;
 import com.future.saf.monitor.basic.AbstractTimer;
 import com.future.saf.monitor.prometheus.metric.profile.PrometheusMetricProfilerProcessor;
+import com.future.saf.web.basic.core.HttpConstant;
 import com.future.saf.web.basic.util.HttpUtil;
 
 import io.prometheus.client.Gauge;
@@ -50,7 +51,8 @@ public class ApacheHttpcomponentsBioClient implements DisposableBean, HttpBioCli
 	private static final Logger ACCESS_LOGGER = Loggers.getAccessLogger();
 	private static final Logger PERFORMANCE_LOGGER = Loggers.getPerformanceLogger();
 
-	private static String PREFIX = ApacheHttpcomponentsBioClient.class.getSimpleName();
+	private static String PREFIX = HttpConstant.METRIC_HTTP_OUT_BIO_URI_PREFIX
+			+ ApacheHttpcomponentsBioClient.class.getSimpleName();
 
 	// 当前HttpBioClient的标示，同时也是metric
 	// name的一部分，也是HttpBioClientBean的一部分，也是apollo配置key中的一部分
@@ -336,7 +338,7 @@ public class ApacheHttpcomponentsBioClient implements DisposableBean, HttpBioCli
 		HTTP_CONNECTION_REQUEST_STAT.inc(instance, url, route);
 		AbstractTimer<Timer, Gauge, Gauge> requestTimer = HTTP_CONNECTION_REQUEST_STAT.startTimer(instance, url, route);
 		try {
-			entry = SphU.entry("Http::Bio::Out");
+			entry = SphU.entry(HttpConstant.METRIC_HTTP_OUT_BIO);
 			methodEntry = SphU.entry(PREFIX + ":" + route + ":" + url);
 			Future<T> future = HTTP_EXECUTOR
 					.submit(new HttpExecutionTask<>(request, begin, reqId, url, route, handler));

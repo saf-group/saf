@@ -12,15 +12,20 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.alibaba.csp.sentinel.SphU;
 import com.alibaba.csp.sentinel.annotation.aspectj.SentinelResourceAspect;
 import com.future.saf.core.autoconfiguration.CustomizedPropertiesBinderAutoConfiguration;
 import com.future.saf.flowcontrol.sentinel.basic.SentinelMetricTimer;
 import com.future.saf.http.apache.httpcomponents.filter.ApacheHttpcomponentsMetricFilter;
-import com.future.saf.http.apache.httpcomponents.flowcontrol.sentinel.ApacheHttpcomponentsSentinelHttpRestController;
 //import com.future.saf.http.apache.httpcomponents.asyncimpl.CHttpClient;
 import com.future.saf.http.apache.httpcomponents.syncimpl.ApacheHttpcomponentsBioClient;
+import com.future.saf.monitor.config.MonitorConfig;
+import com.future.saf.web.basic.core.HttpRestController;
+import com.future.saf.web.basic.core.HttpSentinelInterceptor;
 
 @Configuration
 @AutoConfigureOrder(Ordered.LOWEST_PRECEDENCE)
@@ -80,7 +85,7 @@ public class ApacheHttpcomponentsAutoConfiguration {
 	}
 
 	@Bean
-	public ApacheHttpcomponentsSentinelHttpRestController sentinelHttpRestController() {
-		return new ApacheHttpcomponentsSentinelHttpRestController();
+	public HttpRestController sentinelHttpRestController() {
+		return new HttpRestController();
 	}
 }

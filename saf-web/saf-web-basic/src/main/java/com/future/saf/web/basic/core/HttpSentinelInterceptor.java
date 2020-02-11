@@ -1,4 +1,4 @@
-package com.future.saf.http.apache.httpcomponents.flowcontrol.sentinel;
+package com.future.saf.web.basic.core;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,8 +21,8 @@ import com.future.saf.web.basic.util.HttpUtil;
  * 对服务接受到的http请求进行flowcontrol。
  * 
  */
-public class ApacheHttpcomponentsSentinelHttpInterceptor implements HandlerInterceptor {
-	private static final String PREFIX = "http:in:";
+public class HttpSentinelInterceptor implements HandlerInterceptor {
+	private static final String PREFIX = HttpConstant.METRIC_HTTP_IN_PREFIX;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -31,7 +31,7 @@ public class ApacheHttpcomponentsSentinelHttpInterceptor implements HandlerInter
 		String url = HttpUtil.getPatternUrl(request.getRequestURI());
 		String metrics = request.getMethod() + " " + url;
 		try {
-			httpEntry = SphU.entry("Http::In");
+			httpEntry = SphU.entry(HttpConstant.METRIC_HTTP_IN);
 			methodEntry = SphU.entry(PREFIX + metrics);
 			request.setAttribute("metrics", metrics);
 			request.setAttribute("methodEntry", methodEntry);

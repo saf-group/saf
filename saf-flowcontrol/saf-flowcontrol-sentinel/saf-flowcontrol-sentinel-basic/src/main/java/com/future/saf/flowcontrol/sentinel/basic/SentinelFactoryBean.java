@@ -26,8 +26,6 @@ public class SentinelFactoryBean implements FactoryBean<AbstractSentinelHolder>,
 	public AbstractSentinelHolder getObject() throws Exception {
 
 		String datasource = SentinelRegistrar.datasourceMap.get(beanName);
-		String project = SentinelRegistrar.projectMap.get(beanName);
-		String instance = SentinelRegistrar.instanceMap.get(beanName);
 
 		AbstractSentinelHolder holder = null;
 
@@ -38,7 +36,7 @@ public class SentinelFactoryBean implements FactoryBean<AbstractSentinelHolder>,
 					.newInstance();
 
 			Bindable<?> target = Bindable.of(AbstractSentinelHolder.class).withExistingValue(holder);
-			binder.bind(SENTINEL_APOLLO_KEY_PREFIX + "." + project + "." + instance, target);
+			binder.bind(SENTINEL_APOLLO_KEY_PREFIX, target);
 			holder.load();
 		} else {
 			throw new SentinelBeanInitException(

@@ -33,7 +33,7 @@ public class SentinelAutoConfiguration implements ApplicationContextAware {
 
 	@Bean(name = "safSentinelHolder")
 	public AbstractSentinelHolder safSentinelHolder() {
-		Set<String> sentinelHolderBeanNameSet = SentinelRegistrar.instanceMap.keySet();
+		Set<String> sentinelHolderBeanNameSet = SentinelRegistrar.datasourceMap.keySet();
 
 		AbstractSentinelHolder holder = null;
 		for (String sentinelHolderBeanName : sentinelHolderBeanNameSet) {

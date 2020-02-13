@@ -15,8 +15,6 @@ import com.future.saf.flowcontrol.sentinel.basic.exception.SentinelBeanInitExcep
 
 public class SentinelRegistrar implements ImportBeanDefinitionRegistrar {
 
-	static Map<String, String> projectMap = new ConcurrentHashMap<String, String>();
-	static Map<String, String> instanceMap = new ConcurrentHashMap<String, String>();
 	static Map<String, String> datasourceMap = new ConcurrentHashMap<String, String>();
 
 	@Override
@@ -32,35 +30,18 @@ public class SentinelRegistrar implements ImportBeanDefinitionRegistrar {
 			}
 		}
 
-		{
-			AnnotationAttributes attributes = AnnotationAttributes
-					.fromMap(importingClassMetadata.getAnnotationAttributes(EnableSentinels.class.getName()));
-			if (attributes != null) {
-				AnnotationAttributes[] annotationArray = attributes.getAnnotationArray("value");
-				for (AnnotationAttributes oneAttributes : annotationArray) {
-					register(registry, oneAttributes);
-					processed = true;
-				}
-			}
-		}
 		if (!processed)
-			throw new SentinelBeanInitException("no @EnableSentinel or @EnableSentinels found! please check code!");
+			throw new SentinelBeanInitException("no @EnableSentinel found! please check code!");
 	}
 
 	private void register(BeanDefinitionRegistry registry, AnnotationAttributes oneAttributes) {
 
 		String beanNamePrefix = oneAttributes.getString("beanNamePrefix");
-		String project = oneAttributes.getString("project");
-		String instance = oneAttributes.getString("instance");
 		String datasource = oneAttributes.getString("datasource");
 
 		Assert.isTrue(StringUtils.isNotEmpty(beanNamePrefix), "beanNamePrefix must be specified!");
-		Assert.isTrue(StringUtils.isNotEmpty(project), "project must be specified!");
-		Assert.isTrue(StringUtils.isNotEmpty(instance), "instance must be specified!");
 		Assert.isTrue(StringUtils.isNotEmpty(datasource), "datasource must be specified!");
 
-		projectMap.put(beanNamePrefix + AbstractSentinelHolder.class.getSimpleName(), project);
-		instanceMap.put(beanNamePrefix + AbstractSentinelHolder.class.getSimpleName(), instance);
 		datasourceMap.put(beanNamePrefix + AbstractSentinelHolder.class.getSimpleName(), datasource);
 
 		BeanRegistrationUtil.registerBeanDefinitionIfBeanNameNotExists(registry,

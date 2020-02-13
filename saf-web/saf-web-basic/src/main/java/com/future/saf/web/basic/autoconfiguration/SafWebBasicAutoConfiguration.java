@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.future.saf.core.preloader.PreloaderResult;
 import com.future.saf.monitor.config.MonitorConfig;
+import com.future.saf.web.basic.core.HttpRestController;
 import com.future.saf.web.basic.core.HttpSentinelInterceptor;
 
 import org.springframework.boot.actuate.health.Health;
@@ -41,5 +42,10 @@ public class SafWebBasicAutoConfiguration {
 				}
 			}
 		};
+	}
+
+	@Bean
+	public HttpRestController sentinelHttpRestController() {
+		return new HttpRestController();
 	}
 }

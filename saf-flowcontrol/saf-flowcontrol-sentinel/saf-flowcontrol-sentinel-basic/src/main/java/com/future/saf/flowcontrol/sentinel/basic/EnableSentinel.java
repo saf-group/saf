@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Import(SentinelRegistrar.class)
 public @interface EnableSentinel {
 
-	public String sentinelFactoryBeanName() default "defaultSentinelFactory";
+	public String beanNamePrefix() default "default";
 
 	public String instance() default "default";
 

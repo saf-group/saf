@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.future.saf.flowcontrol.sentinel.basic.SentinelAutoConfiguration

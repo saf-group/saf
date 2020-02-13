@@ -4,18 +4,20 @@ import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.bind.Bindable;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.core.env.Environment;
 
 import com.future.saf.core.CustomizedConfigurationPropertiesBinder;
 import com.future.saf.flowcontrol.sentinel.basic.exception.SentinelBeanInitException;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
-public class SentinelFactoryBean implements FactoryBean<AbstractSentinelHolder>, BeanNameAware {
+public class SentinelFactoryBean implements FactoryBean<AbstractSentinelHolder>, EnvironmentAware, BeanNameAware {
 
 	private static final String SENTINEL_APOLLO_KEY_PREFIX = "sentinel";
 
 	private String beanName;
+
+	@SuppressWarnings("unused")
+	private Environment environment;
 
 	@Autowired
 	protected CustomizedConfigurationPropertiesBinder binder;
@@ -39,7 +41,6 @@ public class SentinelFactoryBean implements FactoryBean<AbstractSentinelHolder>,
 			binder.bind(SENTINEL_APOLLO_KEY_PREFIX + "." + project + "." + instance, target);
 			holder.init();
 		} else {
-			log.error("AbstractSentinelHolder init failed. No found datasource:" + datasource);
 			throw new SentinelBeanInitException(
 					"AbstractSentinelHolder init failed. No found datasource:" + datasource);
 		}
@@ -55,6 +56,11 @@ public class SentinelFactoryBean implements FactoryBean<AbstractSentinelHolder>,
 	@Override
 	public void setBeanName(String name) {
 		this.beanName = name;
+	}
+
+	@Override
+	public void setEnvironment(Environment environment) {
+		this.environment = environment;
 	}
 
 }

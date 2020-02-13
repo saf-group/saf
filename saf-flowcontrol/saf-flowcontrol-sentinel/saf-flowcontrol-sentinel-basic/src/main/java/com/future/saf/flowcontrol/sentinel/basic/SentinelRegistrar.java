@@ -5,24 +5,19 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.Assert;
 
 import com.future.saf.core.util.BeanRegistrationUtil;
 import com.future.saf.flowcontrol.sentinel.basic.exception.SentinelBeanInitException;
 
-public class SentinelRegistrar implements ImportBeanDefinitionRegistrar, ResourceLoaderAware {
+public class SentinelRegistrar implements ImportBeanDefinitionRegistrar {
 
 	static Map<String, String> projectMap = new ConcurrentHashMap<String, String>();
 	static Map<String, String> instanceMap = new ConcurrentHashMap<String, String>();
 	static Map<String, String> datasourceMap = new ConcurrentHashMap<String, String>();
-
-	@SuppressWarnings("unused")
-	private ResourceLoader resourceLoader;
 
 	@Override
 	public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
@@ -54,27 +49,22 @@ public class SentinelRegistrar implements ImportBeanDefinitionRegistrar, Resourc
 
 	private void register(BeanDefinitionRegistry registry, AnnotationAttributes oneAttributes) {
 
-		String sentinelFactoryBeanName = oneAttributes.getString("sentinelFactoryBeanName");
+		String beanNamePrefix = oneAttributes.getString("beanNamePrefix");
 		String project = oneAttributes.getString("project");
 		String instance = oneAttributes.getString("instance");
 		String datasource = oneAttributes.getString("datasource");
 
-		Assert.isTrue(StringUtils.isNotEmpty(sentinelFactoryBeanName), "sentinelFactoryBeanName must be specified!");
+		Assert.isTrue(StringUtils.isNotEmpty(beanNamePrefix), "beanNamePrefix must be specified!");
 		Assert.isTrue(StringUtils.isNotEmpty(project), "project must be specified!");
 		Assert.isTrue(StringUtils.isNotEmpty(instance), "instance must be specified!");
 		Assert.isTrue(StringUtils.isNotEmpty(datasource), "datasource must be specified!");
 
-		projectMap.put(sentinelFactoryBeanName, project);
-		instanceMap.put(sentinelFactoryBeanName, instance);
-		datasourceMap.put(sentinelFactoryBeanName, datasource);
+		projectMap.put(beanNamePrefix + AbstractSentinelHolder.class.getSimpleName(), project);
+		instanceMap.put(beanNamePrefix + AbstractSentinelHolder.class.getSimpleName(), instance);
+		datasourceMap.put(beanNamePrefix + AbstractSentinelHolder.class.getSimpleName(), datasource);
 
-		BeanRegistrationUtil.registerBeanDefinitionIfBeanNameNotExists(registry, sentinelFactoryBeanName,
-				SentinelFactoryBean.class);
-	}
-
-	@Override
-	public void setResourceLoader(ResourceLoader resourceLoader) {
-		this.resourceLoader = resourceLoader;
+		BeanRegistrationUtil.registerBeanDefinitionIfBeanNameNotExists(registry,
+				beanNamePrefix + AbstractSentinelHolder.class.getSimpleName(), SentinelFactoryBean.class);
 	}
 
 }

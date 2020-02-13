@@ -15,7 +15,7 @@ public class SentinelExtApolloHolder extends AbstractSentinelHolder {
 	private ReadableDataSource<String, List<FlowRule>> flowRuleDataSource;
 
 	@Override
-	public void init() {
+	public void load() {
 		this.flowRuleDataSource = new ApolloDataSource<>(super.getNamespace(), super.getFlowRuleKey(),
 				super.getDefaultFlowRules(), source -> JSON.parseObject(source, new TypeReference<List<FlowRule>>() {
 				}));

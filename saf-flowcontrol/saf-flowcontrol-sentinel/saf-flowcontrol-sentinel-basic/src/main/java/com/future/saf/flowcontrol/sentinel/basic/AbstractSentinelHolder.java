@@ -16,6 +16,6 @@ public class AbstractSentinelHolder {
 	public AbstractSentinelHolder() {
 	}
 
-	public void init() {
+	public void load() {
 	}
 }

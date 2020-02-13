@@ -39,7 +39,7 @@ public class SentinelFactoryBean implements FactoryBean<AbstractSentinelHolder>,
 
 			Bindable<?> target = Bindable.of(AbstractSentinelHolder.class).withExistingValue(holder);
 			binder.bind(SENTINEL_APOLLO_KEY_PREFIX + "." + project + "." + instance, target);
-			holder.init();
+			holder.load();
 		} else {
 			throw new SentinelBeanInitException(
 					"AbstractSentinelHolder init failed. No found datasource:" + datasource);

@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 
 import com.alibaba.csp.sentinel.annotation.aspectj.SentinelResourceAspect;
+import com.alibaba.csp.sentinel.init.InitExecutor;
 import com.future.saf.logging.basic.Loggers;
 
 public class SentinelAutoConfiguration implements ApplicationContextAware {
@@ -41,6 +42,7 @@ public class SentinelAutoConfiguration implements ApplicationContextAware {
 			Loggers.getFrameworkLogger()
 					.info("load AbstractSentinelHolder( " + sentinelHolderBeanName + " ): " + holder);
 		}
+		InitExecutor.doInit();
 		return new AbstractSentinelHolder();
 	}
 

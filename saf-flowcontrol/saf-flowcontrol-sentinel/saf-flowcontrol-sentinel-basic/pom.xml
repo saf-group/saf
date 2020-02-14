@@ -27,10 +27,10 @@
 		</dependency>
 
 		<!-- Sentinel -->
-		<dependency>
-			<groupId>com.alibaba.csp</groupId>
-			<artifactId>ahas-sentinel-client</artifactId>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>com.alibaba.csp</groupId> -->
+		<!-- <artifactId>ahas-sentinel-client</artifactId> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>com.alibaba.csp</groupId>
 			<artifactId>sentinel-web-servlet</artifactId>

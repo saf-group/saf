@@ -95,4 +95,9 @@ public class SafDubboAutoConfiguration {
 		SafDubboUtil.initProtocolConfig(config);
 		return config;
 	}
+
+	@Bean
+	public HttpRestController dubboHttpRestController() {
+		return new HttpRestController();
+	}
 }

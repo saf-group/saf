@@ -4,13 +4,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.dubbo.config.ApplicationConfig;
-import org.apache.dubbo.config.ConsumerConfig;
-import org.apache.dubbo.config.ModuleConfig;
-import org.apache.dubbo.config.MonitorConfig;
 import org.apache.dubbo.config.ProtocolConfig;
-import org.apache.dubbo.config.ProviderConfig;
-import org.apache.dubbo.config.RegistryConfig;
 //import org.apache.dubbo.config.spring.ReferenceBean;
 //import org.apache.dubbo.config.spring.ServiceBean;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -75,6 +69,9 @@ public class SafDubboRegistrar implements ImportBeanDefinitionRegistrar {
 				SafDubboBeanValueBindingPostProcessor.class);
 		BeanRegistrationUtil.registerBeanDefinitionIfBeanNameNotExists(registry,
 				beanNamePrefix + ProtocolConfig.class.getSimpleName(), ProtocolConfig.class);
+
+		BeanRegistrationUtil.registerBeanDefinitionIfBeanNameNotExists(registry,
+				SafDubboRPCInstanceNamesConfig.class.getSimpleName(), SafDubboRPCInstanceNamesConfig.class);
 
 	}
 

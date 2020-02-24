@@ -1,8 +1,14 @@
 package com.future.saf.rpc.dubbo.core;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.ApplicationConfig;
 import org.apache.dubbo.config.ConsumerConfig;
+import org.apache.dubbo.config.MethodConfig;
 import org.apache.dubbo.config.MetricsConfig;
 import org.apache.dubbo.config.ModuleConfig;
 import org.apache.dubbo.config.MonitorConfig;
@@ -33,6 +39,10 @@ public class SafDubboBeanValueBindingPostProcessor
 
 	@Autowired
 	protected CustomizedConfigurationPropertiesBinder binder;
+
+	static final Map<String, List<MethodConfig>> instanceToMethodConfigMap = new ConcurrentHashMap<String, List<MethodConfig>>();
+
+	static final Map<String, MethodConfig> instanceAndMethodNameToMethodConfigMap = new ConcurrentHashMap<String, MethodConfig>();
 
 	private Environment environment;
 	private BeanFactory beanFactory;
@@ -136,6 +146,7 @@ public class SafDubboBeanValueBindingPostProcessor
 		// 可以有多个，这样不同允许不同的remote service使用不同的port
 		else if (bean instanceof ProtocolConfig) {
 			log.info("begin to bind config to protocolConfig:" + beanName);
+
 			ProtocolConfig protocolConfigBean = (ProtocolConfig) bean;
 			SafDubboUtil.initProtocolConfig(protocolConfigBean);
 
@@ -143,11 +154,78 @@ public class SafDubboBeanValueBindingPostProcessor
 
 			Bindable<?> target = Bindable.of(ProtocolConfig.class).withExistingValue(protocolConfigBean);
 			binder.bind(nsPrefix, target);
+		} else if (bean instanceof SafDubboRPCInstanceNamesConfig) {
+			log.info("begin to bind config to SafDubboRPCInstanceNamesConfig:" + beanName);
+
+			// 获得配置的所有rpc实例的instance，要和注解EnableSafDubbo中的instance名称一致
+			SafDubboRPCInstanceNamesConfig safDubboRPCConfigBean = (SafDubboRPCInstanceNamesConfig) bean;
+
+			String nsPrefix = SafDubboConstant.PREFIX_DUBBO + ".rpc";
+
+			Bindable<?> target = Bindable.of(SafDubboRPCInstanceNamesConfig.class)
+					.withExistingValue(safDubboRPCConfigBean);
+			binder.bind(nsPrefix, target);
+
+			// 根据apollo配置实例化所有MethodConfig，配置方式举例如下：
+			/**
+			 * dubbo.rpc-instances = shoprpc
+			 * 
+			 * dubbo.shoprpc.method-config.method-names =
+			 * get-shop,test-same-method-name,test-timeout-auto-refresh
+			 * 
+			 * dubbo.shoprpc.method-config.get-shop.name = getShop
+			 * dubbo.shoprpc.method-config.get-shop.timeout = 1000
+			 * 
+			 * dubbo.shoprpc.method-config.test-same-method-name.name =
+			 * testSameMethodName
+			 * dubbo.shoprpc.method-config.test-same-method-name.timeout = 1000
+			 * 
+			 * dubbo.shoprpc.method-config.test-timeout-auto-refresh.name =
+			 * testTimeoutAutoRefresh
+			 * dubbo.shoprpc.method-config.test-timeout-auto-refresh.timeout =
+			 * 1000
+			 **/
+			if (safDubboRPCConfigBean != null && safDubboRPCConfigBean.getInstances() != null) {
+
+				String[] rpcInstanceArray = safDubboRPCConfigBean.getInstances().split(",");
+
+				for (String rpcInstance : rpcInstanceArray) {
+
+					// dubbo.shoprpc.method-config
+					SafDubboRPCInstanceMethodNamesConfig methodNamesConfig = new SafDubboRPCInstanceMethodNamesConfig();
+					String methodNamesNSPrefix = SafDubboConstant.PREFIX_DUBBO + "." + rpcInstance + ".method-config";
+
+					Bindable<?> methodNamesTarget = Bindable.of(SafDubboRPCInstanceMethodNamesConfig.class)
+							.withExistingValue(methodNamesConfig);
+					binder.bind(methodNamesNSPrefix, methodNamesTarget);
+
+					if (methodNamesConfig != null && methodNamesConfig.getMethodNames() != null) {
+
+						String[] methodNameArray = methodNamesConfig.getMethodNames().split(",");
+
+						for (String methodName : methodNameArray) {
+
+							// dubbo.shoprpc.method-config.names
+							MethodConfig mc = new MethodConfig();
+							String mcNSPrefix = SafDubboConstant.PREFIX_DUBBO + "." + rpcInstance + ".method-config."
+									+ methodName;
+
+							Bindable<?> mcTarget = Bindable.of(MethodConfig.class).withExistingValue(mc);
+							binder.bind(mcNSPrefix, mcTarget);
+
+							if (mc.getName() != null) {
+								putMethodConfig(rpcInstance, methodName, mc);
+							}
+						}
+					}
+				}
+			}
 		}
 		// 注入Service apollo配置
 		else if (bean instanceof ServiceBean) {
 			String[] tarray = beanName.split("\\.");
 			beanNamePrefix = tarray[tarray.length - 1].toLowerCase();
+			instance = beanNamePrefix;
 			log.info(String.format("begin to bind config to serviceBean: %s, beanNamePrefix: %s", beanName,
 					beanNamePrefix));
 
@@ -184,6 +262,16 @@ public class SafDubboBeanValueBindingPostProcessor
 
 			Bindable<?> target = Bindable.of(ServiceBean.class).withExistingValue(serviceBean);
 			binder.bind(nsPrefix, target);
+
+			// bind methodconfig
+
+			SafDubboRPCInstanceNamesConfig safDubboRPCInstanceNamesConfig = beanFactory.getBean(
+					SafDubboRPCInstanceNamesConfig.class.getSimpleName(), SafDubboRPCInstanceNamesConfig.class);
+			if (safDubboRPCInstanceNamesConfig != null) {
+				List<MethodConfig> methodConfigList = instanceToMethodConfigMap.get(instance);
+				serviceBean.setMethods(methodConfigList);
+			}
+
 		}
 		// // 注入Reference apollo配置
 		// else if (bean instanceof ReferenceBean) {
@@ -226,6 +314,30 @@ public class SafDubboBeanValueBindingPostProcessor
 		// }
 
 		return bean;
+	}
+
+	static void putMethodConfig(String rpcInstance, String methodApolloName, MethodConfig methodConfig) {
+
+		if (methodConfig == null) {
+			return;
+		}
+
+		List<MethodConfig> methodConfigList = instanceToMethodConfigMap.get(rpcInstance);
+
+		if (methodConfigList == null) {
+			synchronized (instanceToMethodConfigMap) {
+				methodConfigList = instanceToMethodConfigMap.get(rpcInstance);
+				if (methodConfigList == null) {
+					methodConfigList = new ArrayList<MethodConfig>();
+					instanceToMethodConfigMap.put(rpcInstance, methodConfigList);
+				}
+			}
+		}
+
+		methodConfigList.add(methodConfig);
+
+		String key = rpcInstance + "." + methodApolloName;
+		instanceAndMethodNameToMethodConfigMap.put(key, methodConfig);
 	}
 
 	@Override

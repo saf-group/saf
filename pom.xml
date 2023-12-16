@@ -149,11 +149,11 @@
 		<repository>
 			<id>central-repos</id>
 			<name>Central Repository</name>
-			<url>http://repo.maven.apache.org/maven2</url>
+			<url>https://repo.maven.apache.org/maven2</url>
 		</repository>
 		<repository>
 			<id>aliyun-repos</id>
-			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<url>https://maven.aliyun.com/nexus/content/groups/public/</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -165,13 +165,13 @@
 			<id>future_releases</id>
 			<name>releases</name>
 			<!-- <url>http://repo-nexus.future.com:30834/nexus/content/repositories/releases</url> -->
-			<url>http://repo-nexus.future.com:30834/repository/maven-releases/</url>
+			<url>https://repo-nexus.future.com:30834/repository/maven-releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>future_snapshots</id>
 			<name>snapshots</name>
 			<!-- <url>http://repo-nexus.future.com:30834/nexus/content/repositories/snapshots</url> -->
-			<url>http://repo-nexus.future.com:30834/repository/maven-snapshots/</url>
+			<url>https://repo-nexus.future.com:30834/repository/maven-snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
